@@ -8,11 +8,10 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="XIEMBRA · Hijos de la Tierra | Functional Snacks & Café de Especialidad">
   <meta property="og:description" content="Grajeas de Cacao Nativo 65% rellenas de Café Tostado de altura (Chanchamayo, 1,200–1,900 msnm). Energía limpia sin azúcar refinada.">
-  <meta property="og:image" content="images/mockup100gcaja.png">
   
   <title>XIEMBRA | Hijos de la Tierra · Functional Snacks de Cacao 65% & Café de Especialidad</title>
 
-  <!-- Google Fonts: Plus Jakarta Sans, Outfit, Playfair Display -->
+  <!-- Google Fonts: Outfit, Plus Jakarta Sans, Playfair Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
@@ -30,10 +29,10 @@
         extend: {
           colors: {
             brand: {
-              campo: '#006148',        // Verde Campo Oficial (Manual)
+              campo: '#006148',        // Verde Campo Oficial
               campoDark: '#004734',    // Verde Bosque Profundo
-              campoDarker: '#062319',  // Verde Selva Sombra / Dark Mode
-              nature: '#CBEC8A',       // Verde Nature Oficial (Manual)
+              campoDarker: '#062319',  // Verde Selva Sombra
+              nature: '#CBEC8A',       // Verde Nature Oficial
               natureHover: '#B8DF70',  // Hover Verde Nature
               lemon: '#FFFC88',        // Amarillo Limón Oficial
               crema: '#FFFCD2',        // Crema Rancho Oficial
@@ -61,7 +60,7 @@
     }
   </script>
 
-  <!-- Brand Typography & Custom Styles -->
+  <!-- Brand Typography & Animation Styles -->
   <style>
     @font-face {
       font-family: 'UT Marmalade';
@@ -82,22 +81,6 @@
     @font-face {
       font-family: 'Forrest';
       src: url('fonts/forrest-medium.otf') format('opentype');
-      font-weight: 500;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'Forrest';
-      src: url('fonts/forrest-extrabold.otf') format('opentype');
-      font-weight: 800;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'Sequel Sans';
-      src: url('fonts/sequel-sans-medium.ttf') format('truetype');
       font-weight: 500;
       font-style: normal;
       font-display: swap;
@@ -127,7 +110,7 @@
     }
 
     .glass-header {
-      background: rgba(250, 248, 245, 0.92);
+      background: rgba(250, 248, 245, 0.94);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(0, 97, 72, 0.12);
@@ -186,6 +169,42 @@
       text-transform: uppercase;
     }
 
+    /* Tab Switcher Styling */
+    .tab-nav-btn {
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      font-weight: 600;
+      color: #4D6257;
+      border-radius: 9999px;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .tab-nav-btn:hover {
+      color: #006148;
+      background-color: rgba(203, 236, 138, 0.25);
+    }
+    .tab-nav-btn.active {
+      background-color: #006148;
+      color: #CBEC8A;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(0, 97, 72, 0.3);
+    }
+
+    /* Tab Content View Transitions */
+    .tab-panel {
+      display: none;
+      opacity: 0;
+      transform: translateY(18px) scale(0.995);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .tab-panel.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
     /* Infinite Marquee */
     .marquee-track {
       display: flex;
@@ -204,17 +223,6 @@
     }
     .animate-float {
       animation: float 4.5s ease-in-out infinite;
-    }
-
-    /* Scroll Reveal Animations */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     /* Custom Scrollbar */
@@ -241,44 +249,49 @@
         <span>•</span>
         <span>⚡ Envíos 24–48h en Lima Metropolitana</span>
         <span>•</span>
-        <a href="#b2b" class="underline hover:text-white font-bold">Ventas Corporativas & B2B</a>
+        <button onclick="goToTab('tab-b2b')" class="underline hover:text-white font-bold cursor-pointer">Ventas Corporativas & B2B</button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== 2. HEADER & NAVIGATION ==================== -->
+  <!-- ==================== 2. HEADER & BRAND NAVBAR ==================== -->
   <header class="sticky top-0 z-50 transition-all duration-300 glass-header">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 sm:h-24 flex items-center justify-between">
       
       <!-- Brand Logo Oficial -->
-      <a href="#inicio" class="flex items-center gap-3 group" aria-label="XIEMBRA - Inicio">
+      <a href="#inicio" onclick="goToTab('tab-inicio')" class="flex items-center gap-3 group" aria-label="XIEMBRA - Inicio">
         <img src="images/logo_xiembra_perfect.png" 
              alt="XIEMBRA - Hijos de la Tierra" 
              class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
-             width="160" height="50">
+             width="160" height="50"
+             onerror="this.onerror=null; this.src='images/logo_xiembra_brand_green.png'">
       </a>
 
-      <!-- Desktop Nav Menu -->
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-brand-charcoal">
-        <a href="#propuesta" class="hover:text-brand-campo transition-colors">La Propuesta</a>
-        <a href="#grajeas" class="hover:text-brand-campo transition-colors">Catálogo</a>
-        <a href="#anatomia" class="hover:text-brand-campo transition-colors">Ingredientes</a>
-        <a href="#origen" class="hover:text-brand-campo transition-colors">Origen Chanchamayo</a>
-        <a href="#pacarana" class="hover:text-brand-campo transition-colors flex items-center gap-1.5 font-bold text-brand-campo">
-          <span class="w-2 h-2 rounded-full bg-brand-nature border border-brand-campo"></span>
-          La Pacarana
-        </a>
-        <a href="#b2b" class="hover:text-brand-campo transition-colors text-brand-campoDark font-bold">B2B & Cafés</a>
+      <!-- Desktop Tab Bar Navigator (Tabs por separado para evitar scroll excesivo) -->
+      <nav class="hidden lg:flex items-center gap-1.5 p-1.5 rounded-full bg-brand-arena/80 border border-brand-line shadow-inner">
+        <button onclick="goToTab('tab-inicio')" id="nav-tab-inicio" class="tab-nav-btn active">
+          🌟 Inicio & Propuesta
+        </button>
+        <button onclick="goToTab('tab-catalogo')" id="nav-tab-catalogo" class="tab-nav-btn">
+          🛍️ Catálogo & Pedidos
+        </button>
+        <button onclick="goToTab('tab-origen')" id="nav-tab-origen" class="tab-nav-btn">
+          🌿 Origen & Pacarana
+        </button>
+        <button onclick="goToTab('tab-certificados')" id="nav-tab-certificados" class="tab-nav-btn">
+          🏅 Certificaciones
+        </button>
+        <button onclick="goToTab('tab-b2b')" id="nav-tab-b2b" class="tab-nav-btn">
+          💼 Canal B2B
+        </button>
       </nav>
 
-      <!-- Header CTA Buttons -->
+      <!-- Header CTA Button -->
       <div class="hidden sm:flex items-center gap-3">
-        <a href="https://wa.me/51981011816?text=Hola%20XIEMBRA!%20Deseo%20hacer%20un%20pedido%20en%20Lima%20de%20Grajeas%20de%20Cacao%20con%20Caf%C3%A9." 
-           target="_blank"
-           class="px-5 py-2.5 rounded-full btn-campo text-xs uppercase tracking-wider font-bold flex items-center gap-2">
+        <button onclick="goToTab('tab-catalogo')" class="px-5 py-2.5 rounded-full btn-campo text-xs uppercase tracking-wider font-bold flex items-center gap-2">
           <i data-lucide="shopping-bag" class="w-4 h-4 text-brand-nature"></i>
           <span>Pedir en Lima</span>
-        </a>
+        </button>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -287,870 +300,835 @@
       </button>
     </div>
 
-    <!-- Mobile Drawer -->
-    <div id="mobile-menu" class="hidden lg:hidden bg-brand-marfil border-b border-brand-line px-6 py-6 space-y-4 shadow-2xl">
+    <!-- Mobile Drawer / Tab Switcher -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-brand-marfil border-b border-brand-line px-6 py-6 space-y-3 shadow-2xl">
       <div class="pb-3 border-b border-brand-line flex items-center justify-between">
         <img src="images/logo_xiembra_perfect.png" alt="XIEMBRA" class="h-8 w-auto">
         <span class="text-xs font-bold text-brand-campo bg-brand-nature/40 px-3 py-1 rounded-full">Lima · Chanchamayo</span>
       </div>
-      <a href="#propuesta" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">La Propuesta Funcional</a>
-      <a href="#grajeas" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">Catálogo de Productos (20g / 100g)</a>
-      <a href="#anatomia" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">Anatomía & 4 Ingredientes</a>
-      <a href="#origen" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">Origen & Fincas de Altura</a>
-      <a href="#pacarana" class="block text-base font-bold text-brand-campo py-1 flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-brand-nature"></span>
-        Personaje: La Pacarana
-      </a>
-      <a href="#b2b" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">Canal B2B & Distribución Mayorista</a>
-      <div class="pt-4 border-t border-brand-line">
-        <a href="#preorden" class="w-full block text-center py-3.5 rounded-full btn-campo text-sm font-bold">
-          Iniciar Pedido / Preorden
-        </a>
-      </div>
+      <button onclick="goToTab('tab-inicio'); toggleMobileMenu();" class="w-full text-left font-bold text-brand-charcoal hover:text-brand-campo py-2 flex items-center gap-2">
+        <span>🌟</span> Inicio & La Propuesta
+      </button>
+      <button onclick="goToTab('tab-catalogo'); toggleMobileMenu();" class="w-full text-left font-bold text-brand-charcoal hover:text-brand-campo py-2 flex items-center gap-2">
+        <span>🛍️</span> Catálogo de Productos & Preorden
+      </button>
+      <button onclick="goToTab('tab-origen'); toggleMobileMenu();" class="w-full text-left font-bold text-brand-charcoal hover:text-brand-campo py-2 flex items-center gap-2">
+        <span>🌿</span> Origen Chanchamayo & La Pacarana
+      </button>
+      <button onclick="goToTab('tab-certificados'); toggleMobileMenu();" class="w-full text-left font-bold text-brand-charcoal hover:text-brand-campo py-2 flex items-center gap-2">
+        <span>🏅</span> Certificaciones Internacionales
+      </button>
+      <button onclick="goToTab('tab-b2b'); toggleMobileMenu();" class="w-full text-left font-bold text-brand-campoDark py-2 flex items-center gap-2">
+        <span>💼</span> Canal B2B & Mayorista
+      </button>
     </div>
   </header>
 
-  <!-- ==================== 3. HERO SECTION (HIGH-END LIMA IMPACT) ==================== -->
-  <section id="inicio" class="relative pt-12 pb-20 sm:pt-16 sm:pb-28 px-4 sm:px-6 overflow-hidden">
-    
-    <!-- Ambient Organic Glows -->
-    <div class="absolute top-10 right-0 w-[500px] h-[500px] bg-brand-nature/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
-    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-lemon/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <!-- ==================== CONTENEDOR PRINCIPAL DE PESTAÑAS (TAB VIEWS) ==================== -->
+  <main id="main-content" class="min-h-[75vh]">
 
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+    <!-- ==================== PESTAÑA 1: INICIO & PROPUESTA FUNCIONAL ==================== -->
+    <div id="tab-inicio" class="tab-panel active">
       
-      <!-- Columna Izquierda: Copywriting Sector A & B -->
-      <div class="lg:col-span-7 space-y-6 reveal">
-        
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-nature/70 border border-brand-campo/25 text-brand-campoDarker text-xs font-bold tracking-wide uppercase shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-brand-campo animate-ping"></span>
-          <span>Functional Snacks · Valle de Chanchamayo (1,200 – 1,900 msnm)</span>
-        </div>
+      <!-- Hero Section -->
+      <section class="relative pt-10 pb-16 sm:pt-14 sm:pb-24 px-4 sm:px-6 overflow-hidden">
+        <!-- Ambient Glows -->
+        <div class="absolute top-10 right-0 w-[480px] h-[480px] bg-brand-nature/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
+        <div class="absolute bottom-0 left-0 w-[380px] h-[380px] bg-brand-lemon/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-brand-title font-extrabold text-brand-campoDarker leading-[1.12] tracking-tight">
-          El poder de la naturaleza en una sola mordida.
-        </h1>
-
-        <p class="text-xl sm:text-2xl text-brand-campo font-semibold font-brand-display">
-          Grajeas de Cacao Nativo 65% rellenas de Café Tostado de Especialidad.
-        </p>
-
-        <p class="text-base text-brand-muted leading-relaxed max-w-xl font-normal">
-          Diseñadas para profesionales, ejecutivos y amantes del bienestar en Lima. La combinación perfecta entre la <strong class="text-brand-charcoal font-semibold">teobromina del cacao bitter</strong> y la <strong class="text-brand-charcoal font-semibold">cafeína del café de altura</strong>: energía limpia y enfoque mental prolongado sin picos de azúcar ni bajones de glucosa.
-        </p>
-
-        <!-- CTAs Principales -->
-        <div class="flex flex-col sm:flex-row gap-4 pt-2">
-          <a href="#preorden" class="px-8 py-4 rounded-full btn-campo font-bold text-sm text-center flex items-center justify-center gap-2">
-            <span>Pedir ahora en Lima</span>
-            <i data-lucide="arrow-right" class="w-4 h-4 text-brand-nature"></i>
-          </a>
-          <a href="#anatomia" class="px-8 py-4 rounded-full bg-white border-2 border-brand-campo/20 hover:border-brand-campo text-brand-campoDark font-bold text-sm text-center transition-all flex items-center justify-center gap-2 shadow-sm">
-            <span>Explorar ingredientes</span>
-            <i data-lucide="sparkles" class="w-4 h-4 text-brand-dorado"></i>
-          </a>
-        </div>
-
-        <!-- Badges de Certificación & Calidad -->
-        <div class="grid grid-cols-3 gap-3 pt-6 border-t border-brand-line text-xs font-bold text-brand-charcoal">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-full bg-brand-nature/50 flex items-center justify-center text-brand-campo shrink-0">
-              <i data-lucide="check" class="w-4 h-4"></i>
-            </div>
-            <span>65% Cacao Nativo</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-full bg-brand-nature/50 flex items-center justify-center text-brand-campo shrink-0">
-              <i data-lucide="coffee" class="w-4 h-4"></i>
-            </div>
-            <span>Grano de Café Entero</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-full bg-brand-nature/50 flex items-center justify-center text-brand-campo shrink-0">
-              <i data-lucide="leaf" class="w-4 h-4"></i>
-            </div>
-            <span>Endulzado con Panela</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Columna Derecha: Visual Hero Showcase (Caja 100g + Grajea Macro + Pacarana) -->
-      <div class="lg:col-span-5 relative reveal">
-        
-        <!-- Tarjeta Principal con Producto Real -->
-        <div class="relative rounded-3xl bg-gradient-to-b from-brand-crema/80 to-white p-4 sm:p-6 border-2 border-brand-campo/20 shadow-2xl overflow-hidden group">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
-          <!-- Badge Superior -->
-          <div class="flex items-center justify-between mb-4">
-            <span class="tag-origin text-[11px]">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Selva Central · Junín
-            </span>
-            <span class="text-xs font-bold text-brand-campo bg-brand-nature/60 px-3 py-1 rounded-full">
-              Edición Artesanal
-            </span>
-          </div>
+          <!-- Copywriting Hero -->
+          <div class="lg:col-span-7 space-y-5">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-nature/70 border border-brand-campo/25 text-brand-campoDarker text-xs font-bold tracking-wide uppercase shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-brand-campo animate-ping"></span>
+              <span>Functional Snacks · Valle de Chanchamayo (1,200 – 1,900 msnm)</span>
+            </div>
 
-          <!-- Imagen del Producto Real (Caja 100g) -->
-          <div class="relative aspect-square sm:aspect-[4/3] rounded-2xl overflow-hidden bg-brand-arena/50 flex items-center justify-center p-2">
-            <img src="images/mockup100gcaja.png" 
-                 alt="Caja Xiembra 100g - Grajeas de Cacao y Café" 
-                 class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
-                 loading="eager">
-            
-            <!-- Floating Badge: Corte de Grajea -->
-            <div class="absolute bottom-3 left-3 bg-brand-campoDarker/95 text-white p-2.5 rounded-2xl border border-brand-nature/40 shadow-xl backdrop-blur-md flex items-center gap-3 max-w-[210px]">
-              <img src="images/macro_grajea_corte.png" alt="Corte de Grajea" class="w-11 h-11 object-cover rounded-xl border border-brand-nature/50 shrink-0">
-              <div>
-                <p class="text-[10px] text-brand-nature uppercase font-bold tracking-wider">Interior Real</p>
-                <p class="text-xs font-semibold text-brand-crema leading-tight">Grano de café arábica tostado al centro</p>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-brand-title font-extrabold text-brand-campoDarker leading-[1.12] tracking-tight">
+              El poder de la naturaleza en una sola mordida.
+            </h1>
+
+            <p class="text-xl sm:text-2xl text-brand-campo font-semibold font-brand-display">
+              Grajeas de Cacao Nativo 65% rellenas de Café Tostado de Especialidad.
+            </p>
+
+            <p class="text-base text-brand-muted leading-relaxed max-w-xl font-normal">
+              Diseñadas para profesionales, ejecutivos y amantes del café en Lima. La combinación perfecta entre la <strong class="text-brand-charcoal font-semibold">teobromina del cacao bitter</strong> y la <strong class="text-brand-charcoal font-semibold">cafeína de altura</strong>: energía limpia y enfoque mental prolongado sin picos de azúcar ni bajones de glucosa.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+              <button onclick="goToTab('tab-catalogo')" class="px-8 py-4 rounded-full btn-campo font-bold text-sm text-center flex items-center justify-center gap-2 cursor-pointer">
+                <span>Ver Catálogo & Pedir</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-brand-nature"></i>
+              </button>
+              <button onclick="goToTab('tab-certificados')" class="px-8 py-4 rounded-full bg-white border-2 border-brand-campo/20 hover:border-brand-campo text-brand-campoDark font-bold text-sm text-center transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer">
+                <span>Ver Certificaciones</span>
+                <i data-lucide="award" class="w-4 h-4 text-brand-dorado"></i>
+              </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="grid grid-cols-3 gap-3 pt-5 border-t border-brand-line text-xs font-bold text-brand-charcoal">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-brand-nature/50 flex items-center justify-center text-brand-campo shrink-0">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                </div>
+                <span>65% Cacao Nativo</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-brand-nature/50 flex items-center justify-center text-brand-campo shrink-0">
+                  <i data-lucide="coffee" class="w-3.5 h-3.5"></i>
+                </div>
+                <span>Café Tostado Entero</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-brand-nature/50 flex items-center justify-center text-brand-campo shrink-0">
+                  <i data-lucide="leaf" class="w-3.5 h-3.5"></i>
+                </div>
+                <span>Endulzado con Panela</span>
               </div>
             </div>
-
-            <!-- Floating Price Tag -->
-            <div class="absolute top-3 right-3 bg-brand-campo text-brand-lemon px-3 py-1.5 rounded-full font-brand-title font-extrabold text-sm shadow-lg border border-brand-nature/40">
-              S/ 24.00
-            </div>
           </div>
 
-          <!-- Resumen de formatos en Hero -->
-          <div class="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-brand-line text-center text-xs">
-            <div class="p-2 rounded-xl bg-brand-marfil border border-brand-line">
-              <span class="block text-brand-muted text-[10px] uppercase font-bold">Formato Retail</span>
-              <strong class="text-brand-campoDark font-bold text-sm">Bolsita 20g · S/ 6.90</strong>
-            </div>
-            <div class="p-2 rounded-xl bg-brand-nature/30 border border-brand-nature/50">
-              <span class="block text-brand-campoDark text-[10px] uppercase font-bold">Formato Gourmet</span>
-              <strong class="text-brand-campoDark font-bold text-sm">Caja 100g · S/ 24.00</strong>
+          <!-- Visual Showcase Card -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative rounded-3xl bg-gradient-to-b from-brand-crema/80 to-white p-5 sm:p-6 border-2 border-brand-campo/20 shadow-2xl overflow-hidden group">
+              <div class="flex items-center justify-between mb-4">
+                <span class="tag-origin text-[11px]">
+                  <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Selva Central · Junín
+                </span>
+                <span class="text-xs font-bold text-brand-campo bg-brand-nature/60 px-3 py-1 rounded-full">
+                  Edición Gourmet
+                </span>
+              </div>
+
+              <!-- Imagen Real de la Caja 100g -->
+              <div class="relative aspect-square rounded-2xl overflow-hidden bg-brand-arena/50 flex items-center justify-center p-2">
+                <img src="images/mockup100gcaja.png" 
+                     alt="Caja Xiembra 100g - Grajeas de Cacao y Café" 
+                     class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                     onerror="this.onerror=null; this.src='images/mockup100gcaja_opt.jpg'">
+                
+                <!-- Floating Badge: Corte de Grajea -->
+                <div class="absolute bottom-3 left-3 bg-brand-campoDarker/95 text-white p-2.5 rounded-2xl border border-brand-nature/40 shadow-xl backdrop-blur-md flex items-center gap-3 max-w-[210px]">
+                  <img src="images/macro_grajea_corte.png" alt="Corte de Grajea" class="w-11 h-11 object-cover rounded-xl border border-brand-nature/50 shrink-0">
+                  <div>
+                    <p class="text-[10px] text-brand-nature uppercase font-bold tracking-wider">Interior Real</p>
+                    <p class="text-xs font-semibold text-brand-crema leading-tight">Grano de café arábica tostado al centro</p>
+                  </div>
+                </div>
+
+                <!-- Floating Price Tag -->
+                <div class="absolute top-3 right-3 bg-brand-campo text-brand-lemon px-3.5 py-1.5 rounded-full font-brand-title font-extrabold text-sm shadow-lg border border-brand-nature/40">
+                  S/ 24.00
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-brand-line text-center text-xs">
+                <button onclick="goToTab('tab-catalogo')" class="p-2.5 rounded-xl bg-brand-marfil border border-brand-line hover:border-brand-campo cursor-pointer text-left">
+                  <span class="block text-brand-muted text-[10px] uppercase font-bold">Formato Retail</span>
+                  <strong class="text-brand-campoDark font-bold text-xs sm:text-sm">Bolsita 20g · S/ 6.90</strong>
+                </button>
+                <button onclick="goToTab('tab-catalogo')" class="p-2.5 rounded-xl bg-brand-nature/30 border border-brand-nature/50 hover:border-brand-campo cursor-pointer text-left">
+                  <span class="block text-brand-campoDark text-[10px] uppercase font-bold">Formato Regalo</span>
+                  <strong class="text-brand-campoDark font-bold text-xs sm:text-sm">Caja 100g · S/ 24.00</strong>
+                </button>
+              </div>
             </div>
           </div>
 
         </div>
+      </section>
 
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== 4. MARQUEE BANNER DE VALORES ==================== -->
-  <div class="py-4 bg-brand-campo text-brand-lemon overflow-hidden border-y border-brand-nature/30 text-xs sm:text-sm font-bold uppercase tracking-widest">
-    <div class="marquee-track">
-      <span class="mx-6">✦ Cacao Nativo 65%</span>
-      <span class="mx-6">✦ Café de Especialidad</span>
-      <span class="mx-6">✦ Valle de Chanchamayo</span>
-      <span class="mx-6">✦ Sin Azúcar Refinada</span>
-      <span class="mx-6">✦ Energía Limpia & Enfoque Sostenido</span>
-      <span class="mx-6">✦ Comercio Justo & Sostenibilidad</span>
-      <span class="mx-6">✦ Hecho con orgullo en Perú</span>
-      <span class="mx-6">✦ Cacao Nativo 65%</span>
-      <span class="mx-6">✦ Café de Especialidad</span>
-      <span class="mx-6">✦ Valle de Chanchamayo</span>
-      <span class="mx-6">✦ Sin Azúcar Refinada</span>
-      <span class="mx-6">✦ Energía Limpia & Enfoque Sostenido</span>
-      <span class="mx-6">✦ Comercio Justo & Sostenibilidad</span>
-      <span class="mx-6">✦ Hecho con orgullo en Perú</span>
-    </div>
-  </div>
-
-  <!-- ==================== 5. LA PROPUESTA (THE BOTANICAL SHIFT) ==================== -->
-  <section id="propuesta" class="py-20 sm:py-28 bg-brand-marfil border-b border-brand-line">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal">
-        <span class="tag-origin">La Revolución del Snack Consciente</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-brand-title font-bold text-brand-campoDarker">
-          Nutrición funcional diseñada para tu ritmo diario.
-        </h2>
-        <p class="text-base text-brand-muted leading-relaxed">
-          En un mercado saturado de golosinas ultraprocesadas con exceso de azúcar y grasas refinadas, XIEMBRA nace como una respuesta botánica inteligente: ingredientes puros, energía limpia y cero fatiga posterior.
-        </p>
-      </div>
-
-      <!-- Comparativa Visual: Golosina Convencional vs. XIEMBRA -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-16 reveal">
-        
-        <!-- Tarjeta Golosina Convencional -->
-        <div class="p-8 sm:p-10 rounded-3xl bg-white border border-red-200/80 space-y-5 shadow-sm">
-          <div class="flex items-center gap-2 text-red-700 text-xs font-bold uppercase tracking-wider">
-            <i data-lucide="x-circle" class="w-4 h-4"></i> El Snack Convencional de Kiosko
-          </div>
-          <h3 class="text-2xl font-brand-title font-bold text-brand-charcoal">
-            Picos de insulina, cafeína sintética y fatiga mental
-          </h3>
-          <p class="text-sm text-brand-muted leading-relaxed">
-            Contienen más del 50% de azúcar blanca refinada, grasas vegetales hidrogenadas (aceite de palma) y cafeína sintética añadida. Generan un pico de glucosa breve seguido de pesadez, ansiedad y somnolencia a los 40 minutos.
-          </p>
-          <ul class="space-y-2.5 text-xs text-brand-charcoal pt-2">
-            <li class="flex items-center gap-2 text-red-600 font-medium">✕ Sin manteca de cacao pura (sustitutos grasos hidrogenados)</li>
-            <li class="flex items-center gap-2 text-red-600 font-medium">✕ Cafeína sintética que sobreestimula el ritmo cardíaco</li>
-            <li class="flex items-center gap-2 text-red-600 font-medium">✕ Cero trazabilidad ni conexión con el agricultor peruano</li>
-          </ul>
+      <!-- Marquee Strip -->
+      <div class="py-3.5 bg-brand-campo text-brand-lemon overflow-hidden border-y border-brand-nature/30 text-xs font-bold uppercase tracking-widest">
+        <div class="marquee-track">
+          <span class="mx-6">✦ Cacao Nativo 65%</span>
+          <span class="mx-6">✦ Café de Especialidad</span>
+          <span class="mx-6">✦ Valle de Chanchamayo</span>
+          <span class="mx-6">✦ Sin Azúcar Refinada</span>
+          <span class="mx-6">✦ Energía Limpia & Enfoque Sostenido</span>
+          <span class="mx-6">✦ Comercio Justo & Sostenibilidad</span>
+          <span class="mx-6">✦ Hecho con orgullo en Perú</span>
+          <span class="mx-6">✦ Cacao Nativo 65%</span>
+          <span class="mx-6">✦ Café de Especialidad</span>
+          <span class="mx-6">✦ Valle de Chanchamayo</span>
+          <span class="mx-6">✦ Sin Azúcar Refinada</span>
+          <span class="mx-6">✦ Energía Limpia & Enfoque Sostenido</span>
+          <span class="mx-6">✦ Comercio Justo & Sostenibilidad</span>
+          <span class="mx-6">✦ Hecho con orgullo en Perú</span>
         </div>
-
-        <!-- Tarjeta La Solución XIEMBRA -->
-        <div class="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-brand-crema/70 to-brand-nature/30 border-2 border-brand-campo space-y-5 shadow-glow-campo">
-          <div class="flex items-center gap-2 text-brand-campo text-xs font-black uppercase tracking-wider">
-            <i data-lucide="check-circle-2" class="w-4 h-4"></i> La Sinergia Botánica XIEMBRA
-          </div>
-          <h3 class="text-2xl font-brand-title font-bold text-brand-campoDark">
-            Teobromina + Cafeína: Enfoque lúcido y sostenido
-          </h3>
-          <p class="text-sm text-brand-charcoal leading-relaxed">
-            La teobromina natural del cacao 65% actúa como vasodilatador suave, modulando la absorción de la cafeína del grano de café tostado. El resultado: un estado de alerta sereno, productivo y sin taquicardias.
-          </p>
-          <ul class="space-y-2.5 text-xs text-brand-campoDark font-bold pt-2">
-            <li class="flex items-center gap-2">✓ Energía limpia de bajo índice glucémico endulzada con panela</li>
-            <li class="flex items-center gap-2">✓ Rico en polifenoles, flavonoides y antioxidantes protectores</li>
-            <li class="flex items-center gap-2">✓ 100% trazable con +2,300 familias productoras de Chanchamayo</li>
-          </ul>
-        </div>
-
       </div>
 
-    </div>
-  </section>
-
-  <!-- ==================== 6. ANATOMÍA DE LA GRAJEA & 4 INGREDIENTES ==================== -->
-  <section id="anatomia" class="py-20 sm:py-28 bg-brand-arena/60 border-b border-brand-line">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16 reveal">
-        
-        <div class="lg:col-span-6 space-y-5">
-          <span class="tag-origin">Transparencia Clean Label</span>
-          <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-campoDarker">
-            Dos ingredientes protagonistas. Un solo bocado crujiente.
-          </h2>
-          <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
-            Sin secretos ni químicos que no puedas pronunciar. Cada grajea de XIEMBRA está compuesta únicamente por 4 ingredientes nobles de origen peruano, respetando la pureza de la chocolatería fina de origen.
-          </p>
-          
-          <div class="p-4 rounded-2xl bg-white border border-brand-campo/20 shadow-sm flex items-start gap-3 text-xs text-brand-charcoal">
-            <div class="w-6 h-6 rounded-full bg-brand-nature flex items-center justify-center text-brand-campo shrink-0 font-bold">i</div>
-            <p>
-              <strong>Transparencia Nutricional:</strong> La advertencia reglamentaria de grasa saturada proviene exclusivamente de la <em>manteca de cacao pura</em> (grasa vegetal noble rica en ácido esteárico). Cero grasas trans, cero aceites de palma.
+      <!-- Sinergia Botánica vs. Golosina -->
+      <section class="py-16 sm:py-20 bg-brand-marfil border-b border-brand-line">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+            <span class="tag-origin">La Revolución del Snack Consciente</span>
+            <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-campoDarker">
+              Nutrición funcional diseñada para tu jornada.
+            </h2>
+            <p class="text-sm text-brand-muted">
+              Descubre por qué XIEMBRA redefine el snack cotidiano: ingredientes limpios, energía sostenida y cero bajones.
             </p>
           </div>
-        </div>
 
-        <!-- Macro Visual Cut Image -->
-        <div class="lg:col-span-6 flex justify-center">
-          <div class="relative rounded-3xl p-6 bg-white border-2 border-brand-campo/25 shadow-xl max-w-md w-full text-center">
-            <img src="images/macro_grajea_corte.png" 
-                 alt="Corte transversal de la grajea Xiembra" 
-                 class="w-64 h-64 mx-auto object-contain drop-shadow-2xl mb-4">
-            <div class="space-y-1">
-              <span class="text-xs font-bold text-brand-campo uppercase tracking-wider">Corte Transversal Real</span>
-              <h4 class="text-base font-bold text-brand-charcoal">Cobertura Cacao 65% + Corazón de Café Tostado</h4>
-              <p class="text-xs text-brand-muted">Crujido aromático con notas tostadas de chocolate y frutos secos.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-12">
+            <!-- Tarjeta Golosina Convencional -->
+            <div class="p-8 rounded-3xl bg-white border border-red-200/80 space-y-4 shadow-sm">
+              <div class="flex items-center gap-2 text-red-700 text-xs font-bold uppercase tracking-wider">
+                <i data-lucide="x-circle" class="w-4 h-4"></i> Golosina Convencional de Kiosko
+              </div>
+              <h3 class="text-xl font-brand-title font-bold text-brand-charcoal">
+                Picos de insulina, cafeína sintética y somnolencia
+              </h3>
+              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                Contienen más del 50% de azúcar refinada y aceites hidrogenados de palma. Generan una subida abrupta de glucosa seguida de fatiga y pesadez a los 40 minutos.
+              </p>
+              <ul class="space-y-2 text-xs text-brand-charcoal pt-2">
+                <li class="flex items-center gap-2 text-red-600 font-medium">✕ Sin manteca de cacao pura (sustitutos grasos hidrogenados)</li>
+                <li class="flex items-center gap-2 text-red-600 font-medium">✕ Cafeína sintética que provoca ansiedad y taquicardias</li>
+                <li class="flex items-center gap-2 text-red-600 font-medium">✕ Cero trazabilidad del origen agrícola</li>
+              </ul>
+            </div>
+
+            <!-- Tarjeta XIEMBRA -->
+            <div class="p-8 rounded-3xl bg-gradient-to-br from-brand-crema/70 to-brand-nature/30 border-2 border-brand-campo space-y-4 shadow-glow-campo">
+              <div class="flex items-center gap-2 text-brand-campo text-xs font-black uppercase tracking-wider">
+                <i data-lucide="check-circle-2" class="w-4 h-4"></i> Sinergia Botánica XIEMBRA
+              </div>
+              <h3 class="text-xl font-brand-title font-bold text-brand-campoDark">
+                Teobromina + Cafeína: Claridad y enfoque prolongado
+              </h3>
+              <p class="text-xs sm:text-sm text-brand-charcoal leading-relaxed">
+                La teobromina del cacao 65% actúa como vasodilatador suave, modulando la cafeína del grano de café tostado para brindar energía prolongada sin alteraciones.
+              </p>
+              <ul class="space-y-2 text-xs text-brand-campoDark font-bold pt-2">
+                <li class="flex items-center gap-2">✓ Energía limpia de bajo índice glucémico con panela orgánica</li>
+                <li class="flex items-center gap-2">✓ Rico en polifenoles, flavonoides y antioxidantes activos</li>
+                <li class="flex items-center gap-2">✓ 100% trazable con agricultores del Valle de Chanchamayo</li>
+              </ul>
             </div>
           </div>
-        </div>
 
-      </div>
-
-      <!-- Grid de los 4 Ingredientes -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
-        
-        <div class="p-6 rounded-3xl card-premium space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-nature/40 flex items-center justify-center text-brand-campo font-brand-display text-2xl font-bold">
-            01
+          <!-- 4 Ingredientes Clean Label Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="p-5 rounded-3xl card-premium space-y-2">
+              <span class="text-xs font-bold text-brand-campo uppercase tracking-wider">Ingrediente 01</span>
+              <h4 class="text-base font-bold text-brand-campoDark">Pasta de Cacao Nativo</h4>
+              <p class="text-xs text-brand-muted">Cacao criollo fino de aroma de la Selva Central al 65% de pureza.</p>
+            </div>
+            <div class="p-5 rounded-3xl card-premium space-y-2">
+              <span class="text-xs font-bold text-brand-campo uppercase tracking-wider">Ingrediente 02</span>
+              <h4 class="text-base font-bold text-brand-campoDark">Café Arábica Tostado</h4>
+              <p class="text-xs text-brand-muted">Granos enteros de especialidad con tostado medio crujiente y aromático.</p>
+            </div>
+            <div class="p-5 rounded-3xl card-premium space-y-2">
+              <span class="text-xs font-bold text-brand-campo uppercase tracking-wider">Ingrediente 03</span>
+              <h4 class="text-base font-bold text-brand-campoDark">Manteca de Cacao Pura</h4>
+              <p class="text-xs text-brand-muted">Grasa noble botánica extraída mecánicamente. Textura sedosa sin aditivos.</p>
+            </div>
+            <div class="p-5 rounded-3xl card-premium space-y-2">
+              <span class="text-xs font-bold text-brand-campo uppercase tracking-wider">Ingrediente 04</span>
+              <h4 class="text-base font-bold text-brand-campoDark">Panela Orgánica</h4>
+              <p class="text-xs text-brand-muted">Jugo deshidratado de caña sin refinar, con sales minerales y dulzor natural.</p>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-brand-campoDark">Pasta de Cacao Nativo</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Cacao criollo de fino aroma cosechado en valles de la Selva Central. Aporta el 65% de intensidad y polifenoles antioxidantes.
-          </p>
-        </div>
 
-        <div class="p-6 rounded-3xl card-premium space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-nature/40 flex items-center justify-center text-brand-campo font-brand-display text-2xl font-bold">
-            02
+          <div class="mt-8 text-center">
+            <button onclick="goToTab('tab-catalogo')" class="px-8 py-3.5 rounded-full btn-nature text-xs font-extrabold inline-flex items-center gap-2 cursor-pointer shadow-md">
+              <span>Continuar al Catálogo y Pedidos</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
           </div>
-          <h3 class="text-lg font-bold text-brand-campoDark">Café Arábica Tostado</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Granos enteros de especialidad tostados con curvas de aire caliente precisas para un crujido suave y aromático al masticar.
-          </p>
-        </div>
 
-        <div class="p-6 rounded-3xl card-premium space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-nature/40 flex items-center justify-center text-brand-campo font-brand-display text-2xl font-bold">
-            03
-          </div>
-          <h3 class="text-lg font-bold text-brand-campoDark">Manteca de Cacao Pura</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Grasa vegetal noble extraída mecánicamente. Otorga la textura fundente y sedosa en boca sin necesidad de aditivos ni ceras.
-          </p>
         </div>
-
-        <div class="p-6 rounded-3xl card-premium space-y-3">
-          <div class="w-12 h-12 rounded-2xl bg-brand-nature/40 flex items-center justify-center text-brand-campo font-brand-display text-2xl font-bold">
-            04
-          </div>
-          <h3 class="text-lg font-bold text-brand-campoDark">Panela Orgánica</h3>
-          <p class="text-xs text-brand-muted leading-relaxed">
-            Jugo deshidratado de caña de azúcar sin refinar. Conserva sus minerales esenciales y aporta un dulzor equilibrado y natural.
-          </p>
-        </div>
-
-      </div>
+      </section>
 
     </div>
-  </section>
 
-  <!-- ==================== 7. CATÁLOGO OFICIAL & COMPRA INTERACTIVA ==================== -->
-  <section id="grajeas" class="py-20 sm:py-28 bg-brand-marfil">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal">
-        <div class="space-y-3 max-w-2xl">
-          <span class="tag-origin">Portafolio Oficial XIEMBRA</span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-brand-title font-bold text-brand-campoDarker">
-            Elige cómo acompañar tu pausa diaria.
-          </h2>
-          <p class="text-sm sm:text-base text-brand-muted">
-            Formatos certificados listos para delivery en Lima Metropolitana o para exhibición gourmet en tiendas selectas.
-          </p>
-        </div>
-        <div class="text-xs text-brand-campo font-bold bg-brand-nature/50 px-4 py-2.5 rounded-full border border-brand-nature self-start md:self-auto flex items-center gap-2">
-          <i data-lucide="truck" class="w-4 h-4"></i>
-          <span>Delivery 24–48h en distritos de Lima</span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 reveal">
-        
-        <!-- Formato 1: Bolsita Individual 20g (S/ 6.90) -->
-        <article class="rounded-3xl card-premium p-6 flex flex-col justify-between group">
-          <div>
-            <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-brand-arena/60 mb-6 flex items-center justify-center p-4">
-              <img src="images/mockup20g1_opt.jpg" 
-                   alt="Bolsita Individual 20g XIEMBRA" 
-                   class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105">
-              <span class="absolute top-3 left-3 bg-brand-campo text-brand-nature text-[11px] font-bold px-3 py-1 rounded-full uppercase">
-                On-The-Go
-              </span>
-            </div>
-
-            <div class="space-y-2 mb-4">
-              <div class="flex items-baseline justify-between">
-                <h3 class="text-2xl font-brand-title font-bold text-brand-charcoal">Bolsita Individual</h3>
-                <span class="text-2xl font-brand-title font-extrabold text-brand-campo">S/ 6.90</span>
-              </div>
-              <p class="text-xs font-bold text-brand-dorado uppercase tracking-wide">Contenido Neto: 20 g · Retail</p>
-              <p class="text-xs text-brand-muted leading-relaxed">
-                El formato perfecto para llevar en el bolso, maletín o consumir antes de entrenar y en la oficina. Empaque trilaminado con barrera de protección UV.
-              </p>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-brand-line flex items-center justify-between gap-3">
-            <span class="text-[11px] text-brand-muted font-medium">B2B: S/ 4.80 (x mayor)</span>
-            <a href="#preorden" class="px-4 py-2.5 rounded-full btn-campo text-xs font-bold text-center">
-              Pedir este formato
-            </a>
-          </div>
-        </article>
-
-        <!-- Formato 2: Caja Gourmet 100g (S/ 24.00) - DESTACADO -->
-        <article class="rounded-3xl bg-gradient-to-b from-brand-crema/60 to-white border-2 border-brand-campo p-6 flex flex-col justify-between relative shadow-glow-campo group">
-          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-campo text-brand-lemon text-[11px] font-extrabold px-4 py-1 rounded-full tracking-wider uppercase shadow-md">
-            ★ Más Popular · Regalo Selecto
-          </div>
-
-          <div>
-            <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-brand-arena/60 mb-6 flex items-center justify-center p-4">
-              <img src="images/mockup100gcaja.png" 
-                   alt="Caja Gourmet 100g XIEMBRA" 
-                   class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105">
-              <span class="absolute top-3 left-3 bg-brand-campo text-brand-lemon text-[11px] font-bold px-3 py-1 rounded-full uppercase">
-                Edición Regalo
-              </span>
-            </div>
-
-            <div class="space-y-2 mb-4">
-              <div class="flex items-baseline justify-between">
-                <h3 class="text-2xl font-brand-title font-bold text-brand-charcoal">Caja Gourmet</h3>
-                <span class="text-3xl font-brand-title font-extrabold text-brand-campo">S/ 24.00</span>
-              </div>
-              <p class="text-xs font-bold text-brand-dorado uppercase tracking-wide">Contenido Neto: 100 g · Presentación Premium</p>
-              <p class="text-xs text-brand-muted leading-relaxed">
-                Elegante caja con acabado mate soft-touch y troquelado con La Pacarana. Ideal para regalar, compartir en reuniones de directorio o disfrutar en casa.
-              </p>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-brand-line flex items-center justify-between gap-3">
-            <span class="text-[11px] text-brand-muted font-medium">B2B: S/ 17.50 (x mayor)</span>
-            <a href="#preorden" class="px-5 py-2.5 rounded-full btn-nature text-xs font-bold text-center">
-              Pedir Caja 100g
-            </a>
-          </div>
-        </article>
-
-        <!-- Formato 3: Pack Dúo Degustación Lima (S/ 42.00) -->
-        <article class="rounded-3xl card-premium p-6 flex flex-col justify-between group">
-          <div>
-            <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-brand-arena/60 mb-6 flex items-center justify-center p-4">
-              <img src="images/brochure_product_opt.jpg" 
-                   alt="Pack Degustación XIEMBRA" 
-                   class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105">
-              <span class="absolute top-3 left-3 bg-brand-nature text-brand-campoDark text-[11px] font-bold px-3 py-1 rounded-full uppercase">
-                Pack Completo
-              </span>
-            </div>
-
-            <div class="space-y-2 mb-4">
-              <div class="flex items-baseline justify-between">
-                <h3 class="text-2xl font-brand-title font-bold text-brand-charcoal">Pack Degustación</h3>
-                <span class="text-2xl font-brand-title font-extrabold text-brand-campo">S/ 42.00</span>
-              </div>
-              <p class="text-xs font-bold text-brand-dorado uppercase tracking-wide">1 Caja 100g + 3 Bolsitas 20g</p>
-              <p class="text-xs text-brand-muted leading-relaxed">
-                La experiencia completa para descubrir ambos formatos. Diseñado para familias o ejecutivos que desean stock personal y para regalar.
-              </p>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-brand-line flex items-center justify-between gap-3">
-            <span class="text-[11px] text-brand-campo font-bold">Ahorro especial</span>
-            <a href="#preorden" class="px-4 py-2.5 rounded-full btn-campo text-xs font-bold text-center">
-              Pedir Pack Dúo
-            </a>
-          </div>
-        </article>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== 8. ORIGEN CHANCHAMAYO & IMPACTO SOCIAL ==================== -->
-  <section id="origen" class="py-20 sm:py-28 bg-brand-campoDarker text-white relative overflow-hidden">
-    
-    <!-- Decorative background glow -->
-    <div class="absolute -right-20 top-0 w-96 h-96 bg-brand-nature/10 rounded-full blur-3xl pointer-events-none"></div>
-
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16 reveal">
-        
-        <div class="lg:col-span-7 space-y-5">
-          <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-nature/20 border border-brand-nature/40 text-brand-nature text-xs font-bold uppercase tracking-wider">
-            Terroir de Altura & Comercio Justo
-          </span>
-          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-brand-title font-bold text-brand-crema leading-tight">
-            De las fincas de Chanchamayo directo a tus manos en Lima.
-          </h2>
-          <p class="text-sm sm:text-base text-brand-nature/90 leading-relaxed font-light">
-            Xiembra nace inspirada en la exuberancia agrícola de la Selva Central del Perú (Junín). Trabajamos en alianza estratégica con <strong class="text-white font-semibold">Chanchamayo Highland Coffee SAC</strong>, empresa cafetalera líder que respalda procesos con certificación internacional y pago ético por encima del mercado a los productores.
-          </p>
-        </div>
-
-        <div class="lg:col-span-5 grid grid-cols-2 gap-4">
-          <div class="p-6 rounded-3xl bg-brand-campo/80 border border-brand-nature/30 text-center space-y-1">
-            <strong class="block text-3xl sm:text-4xl font-brand-title text-brand-lemon">1,900 m</strong>
-            <span class="text-xs text-brand-crema/90 uppercase font-bold tracking-wider">Altitud Máxima (msnm)</span>
-          </div>
-          <div class="p-6 rounded-3xl bg-brand-campo/80 border border-brand-nature/30 text-center space-y-1">
-            <strong class="block text-3xl sm:text-4xl font-brand-title text-brand-lemon">+2,300</strong>
-            <span class="text-xs text-brand-crema/90 uppercase font-bold tracking-wider">Familias Productoras</span>
-          </div>
-          <div class="p-6 rounded-3xl bg-brand-campo/80 border border-brand-nature/30 text-center space-y-1">
-            <strong class="block text-3xl sm:text-4xl font-brand-title text-brand-lemon">40,000 ha</strong>
-            <span class="text-xs text-brand-crema/90 uppercase font-bold tracking-wider">Entorno Cafetalero</span>
-          </div>
-          <div class="p-6 rounded-3xl bg-brand-campo/80 border border-brand-nature/30 text-center space-y-1">
-            <strong class="block text-3xl sm:text-4xl font-brand-title text-brand-lemon">100%</strong>
-            <span class="text-xs text-brand-crema/90 uppercase font-bold tracking-wider">Trazable & Ético</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Respaldo de Certificaciones Internacionales -->
-      <div class="p-8 sm:p-10 rounded-3xl bg-brand-campo/60 border border-brand-nature/30 reveal">
-        <h3 class="text-center text-xs font-bold uppercase tracking-widest text-brand-lemon mb-6">
-          Estándares y Certificaciones en la Cadena de Suministro del Proveedor de Origen
-        </h3>
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center text-xs font-semibold text-brand-crema">
-          <div class="p-4 rounded-2xl bg-brand-campoDarker/70 border border-brand-nature/20 flex flex-col items-center justify-center gap-2">
-            <i data-lucide="award" class="w-6 h-6 text-brand-nature"></i>
-            <span>USDA Organic</span>
-          </div>
-          <div class="p-4 rounded-2xl bg-brand-campoDarker/70 border border-brand-nature/20 flex flex-col items-center justify-center gap-2">
-            <i data-lucide="shield-check" class="w-6 h-6 text-brand-nature"></i>
-            <span>EU Organic (AB)</span>
-          </div>
-          <div class="p-4 rounded-2xl bg-brand-campoDarker/70 border border-brand-nature/20 flex flex-col items-center justify-center gap-2">
-            <i data-lucide="heart-handshake" class="w-6 h-6 text-brand-nature"></i>
-            <span>Fair Trade (Comercio Justo)</span>
-          </div>
-          <div class="p-4 rounded-2xl bg-brand-campoDarker/70 border border-brand-nature/20 flex flex-col items-center justify-center gap-2">
-            <i data-lucide="trees" class="w-6 h-6 text-brand-nature"></i>
-            <span>Rainforest Alliance</span>
-          </div>
-          <div class="p-4 rounded-2xl bg-brand-campoDarker/70 border border-brand-nature/20 flex flex-col items-center justify-center gap-2">
-            <i data-lucide="check-circle" class="w-6 h-6 text-brand-nature"></i>
-            <span>BioEM (Japón)</span>
-          </div>
-          <div class="p-4 rounded-2xl bg-brand-campoDarker/70 border border-brand-nature/20 flex flex-col items-center justify-center gap-2">
-            <i data-lucide="file-check" class="w-6 h-6 text-brand-nature"></i>
-            <span>IMO Control Perú</span>
-          </div>
-        </div>
-
-        <p class="text-[11px] text-center text-brand-crema/60 mt-4">
-          N° de certificado de origen: 25-11576PE · Registro Sanitario: G100441/N-KCEPAR
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== 9. PERSONAJE OFICIAL: LA PACARANA ==================== -->
-  <section id="pacarana" class="py-20 sm:py-28 bg-brand-marfil border-b border-brand-line">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="p-8 sm:p-14 rounded-3xl bg-gradient-to-br from-brand-crema/80 via-white to-brand-nature/30 border-2 border-brand-campo/30 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-center reveal">
-        
-        <!-- Ilustración de La Pacarana -->
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="relative w-56 h-56 sm:w-72 sm:h-72 rounded-3xl bg-brand-nature/30 border-2 border-brand-campo/20 p-6 flex items-center justify-center shadow-inner group">
-            <img src="images/pacarana_mascot.png" 
-                 alt="La Pacarana - Mascota Oficial de XIEMBRA" 
-                 class="w-full h-full object-contain animate-float drop-shadow-xl">
-            <span class="absolute -bottom-3 bg-brand-campo text-brand-nature text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider shadow">
-              Dinomys branickii
-            </span>
-          </div>
-        </div>
-
-        <!-- Historia del Personaje -->
-        <div class="lg:col-span-7 space-y-4">
-          <span class="tag-origin">Nuestra Mascota & Guardiana</span>
-          <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-campoDarker">
-            La Pacarana: El espíritu trabajador de la Selva Central.
-          </h2>
-          <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
-            La <strong>Pacarana</strong> (o <em>Machetero</em>) es un roedor autóctono y protegido de los bosques de niebla de Junín. Con su sombrero de paja campesino, pala agrícola y taza de café humeante, personifica el esfuerzo de las familias caficultoras, la siembra bajo sombra y la conservación de la Amazonía.
-          </p>
+    <!-- ==================== PESTAÑA 2: CATÁLOGO & PEDIDOS EN LIMA ==================== -->
+    <div id="tab-catalogo" class="tab-panel">
+      <section class="py-12 sm:py-16 bg-brand-marfil">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
           
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-semibold text-brand-campoDark">
-            <div class="flex items-center gap-2 p-3 rounded-2xl bg-white border border-brand-line">
-              <i data-lucide="sprout" class="w-4 h-4 text-brand-campo"></i>
-              <span>Protección de bosques de niebla</span>
+          <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div class="space-y-2 max-w-2xl">
+              <span class="tag-origin">Catálogo de Venta Directa</span>
+              <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-campoDarker">
+                Formatos Oficiales XIEMBRA
+              </h2>
+              <p class="text-sm text-brand-muted">
+                Precios unitarios sugeridos para consumo personal, oficinas y regalos en Lima.
+              </p>
             </div>
-            <div class="flex items-center gap-2 p-3 rounded-2xl bg-white border border-brand-line">
-              <i data-lucide="coffee" class="w-4 h-4 text-brand-campo"></i>
-              <span>Tributo a la agricultura tradicional</span>
+            <div class="text-xs text-brand-campo font-bold bg-brand-nature/50 px-4 py-2 rounded-full border border-brand-nature flex items-center gap-2 self-start md:self-auto">
+              <i data-lucide="truck" class="w-4 h-4"></i>
+              <span>Envíos rápidos a todo Lima Metropolitana</span>
             </div>
           </div>
-        </div>
 
-      </div>
+          <!-- Grid de Productos -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            
+            <!-- Bolsita 20g -->
+            <article class="rounded-3xl card-premium p-6 flex flex-col justify-between group">
+              <div>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-brand-arena/60 mb-5 flex items-center justify-center p-3">
+                  <img src="images/mockup20g1_opt.jpg" 
+                       alt="Bolsita Individual 20g" 
+                       class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                       onerror="this.onerror=null; this.src='images/mockup20g2_opt.jpg'">
+                  <span class="absolute top-3 left-3 bg-brand-campo text-brand-nature text-[11px] font-bold px-3 py-1 rounded-full uppercase">
+                    On-The-Go
+                  </span>
+                </div>
+                <div class="space-y-1.5 mb-4">
+                  <div class="flex items-baseline justify-between">
+                    <h3 class="text-xl font-brand-title font-bold text-brand-charcoal">Bolsita Individual</h3>
+                    <span class="text-2xl font-brand-title font-extrabold text-brand-campo">S/ 6.90</span>
+                  </div>
+                  <p class="text-xs font-bold text-brand-dorado uppercase">20 gramos · Consumo Diario</p>
+                  <p class="text-xs text-brand-muted leading-relaxed">
+                    Ideal para llevar en el bolso, maletín o antes de entrenar. Bolsa trilaminada hermética.
+                  </p>
+                </div>
+              </div>
+              <button onclick="selectProductAndScroll('snack20')" class="w-full py-2.5 rounded-full btn-campo text-xs font-bold text-center cursor-pointer">
+                Agregar al Pedido
+              </button>
+            </article>
 
-    </div>
-  </section>
+            <!-- Caja 100g -->
+            <article class="rounded-3xl bg-gradient-to-b from-brand-crema/60 to-white border-2 border-brand-campo p-6 flex flex-col justify-between relative shadow-glow-campo group">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-campo text-brand-lemon text-[10px] font-extrabold px-3 py-0.5 rounded-full uppercase shadow">
+                ★ Más Vendido
+              </div>
+              <div>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-brand-arena/60 mb-5 flex items-center justify-center p-3">
+                  <img src="images/mockup100gcaja.png" 
+                       alt="Caja Gourmet 100g" 
+                       class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                       onerror="this.onerror=null; this.src='images/mockup100gcaja_opt.jpg'">
+                  <span class="absolute top-3 left-3 bg-brand-campo text-brand-lemon text-[11px] font-bold px-3 py-1 rounded-full uppercase">
+                    Edición Regalo
+                  </span>
+                </div>
+                <div class="space-y-1.5 mb-4">
+                  <div class="flex items-baseline justify-between">
+                    <h3 class="text-xl font-brand-title font-bold text-brand-charcoal">Caja Gourmet</h3>
+                    <span class="text-2xl font-brand-title font-extrabold text-brand-campo">S/ 24.00</span>
+                  </div>
+                  <p class="text-xs font-bold text-brand-dorado uppercase">100 gramos · Presentación Premium</p>
+                  <p class="text-xs text-brand-muted leading-relaxed">
+                    Elegante caja plastificada mate con visor. Perfecta para regalos selectos, oficina y hogar.
+                  </p>
+                </div>
+              </div>
+              <button onclick="selectProductAndScroll('snack100')" class="w-full py-2.5 rounded-full btn-nature text-xs font-bold text-center cursor-pointer">
+                Agregar al Pedido
+              </button>
+            </article>
 
-  <!-- ==================== 10. PREORDEN & CHECKOUT WHATSAPP ==================== -->
-  <section id="preorden" class="py-20 sm:py-28 bg-brand-crema/40 border-b border-brand-line">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      
-      <div class="text-center space-y-4 mb-12 reveal">
-        <span class="tag-origin">Atención Inmediata</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-brand-title font-bold text-brand-campoDarker">
-          Inicia tu pedido en Lima.
-        </h2>
-        <p class="text-sm sm:text-base text-brand-muted max-w-xl mx-auto">
-          Configura las cantidades que deseas y coordina tu entrega directa por WhatsApp con nuestro equipo comercial.
-        </p>
-      </div>
+            <!-- Pack Dúo -->
+            <article class="rounded-3xl card-premium p-6 flex flex-col justify-between group">
+              <div>
+                <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-brand-arena/60 mb-5 flex items-center justify-center p-3">
+                  <img src="images/brochure_product_opt.jpg" 
+                       alt="Pack Degustación" 
+                       class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                       onerror="this.onerror=null; this.src='images/brochure_hero_opt.jpg'">
+                  <span class="absolute top-3 left-3 bg-brand-nature text-brand-campoDark text-[11px] font-bold px-3 py-1 rounded-full uppercase">
+                    Pack Completo
+                  </span>
+                </div>
+                <div class="space-y-1.5 mb-4">
+                  <div class="flex items-baseline justify-between">
+                    <h3 class="text-xl font-brand-title font-bold text-brand-charcoal">Pack Degustación</h3>
+                    <span class="text-2xl font-brand-title font-extrabold text-brand-campo">S/ 42.00</span>
+                  </div>
+                  <p class="text-xs font-bold text-brand-dorado uppercase">1 Caja 100g + 3 Bolsitas 20g</p>
+                  <p class="text-xs text-brand-muted leading-relaxed">
+                    La combinación ideal para tener stock personal y compartir. Precio promocional en Lima.
+                  </p>
+                </div>
+              </div>
+              <button onclick="selectPackDuo()" class="w-full py-2.5 rounded-full btn-campo text-xs font-bold text-center cursor-pointer">
+                Agregar Pack Dúo
+              </button>
+            </article>
 
-      <div class="p-8 sm:p-12 rounded-3xl bg-white border-2 border-brand-campo/25 shadow-2xl reveal">
-        
-        <form id="preorder-form" onsubmit="handlePreorderSubmit(event)" class="space-y-8">
-          
-          <!-- Selector de Productos -->
-          <div class="space-y-4">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-brand-campo flex items-center gap-2">
-              <i data-lucide="package-check" class="w-4 h-4"></i> 1. Selecciona tus formatos
-            </h3>
+          </div>
 
-            <!-- Item 1: Bolsita 20g -->
-            <div class="flex items-center justify-between p-4 rounded-2xl bg-brand-marfil border border-brand-line hover:border-brand-campo transition-colors">
-              <div class="flex items-center gap-3">
-                <input type="checkbox" id="check-snack20" checked onchange="updatePreorderSummary()" class="w-5 h-5 accent-brand-campo rounded cursor-pointer">
-                <div>
-                  <label for="check-snack20" class="text-sm font-bold text-brand-charcoal cursor-pointer block">
-                    Bolsita Individual 20g (Retail / On-The-Go)
-                  </label>
-                  <span class="text-xs text-brand-muted">S/ 6.90 c/u</span>
+          <!-- Formulario Interactivo de Checkout WhatsApp -->
+          <div id="checkout-box" class="max-w-3xl mx-auto p-8 sm:p-10 rounded-3xl bg-white border-2 border-brand-campo/25 shadow-2xl">
+            <div class="text-center space-y-2 mb-8">
+              <span class="tag-origin">Calculadora de Pedido</span>
+              <h3 class="text-2xl sm:text-3xl font-brand-title font-bold text-brand-campoDarker">
+                Configura tu pedido y coordina por WhatsApp
+              </h3>
+            </div>
+
+            <form onsubmit="handlePreorderSubmit(event)" class="space-y-6">
+              
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-brand-campo">1. Ajusta las cantidades:</h4>
+                
+                <!-- Item 20g -->
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-brand-marfil border border-brand-line">
+                  <div class="flex items-center gap-3">
+                    <input type="checkbox" id="check-snack20" checked onchange="updatePreorderSummary()" class="w-4 h-4 accent-brand-campo cursor-pointer">
+                    <div>
+                      <label for="check-snack20" class="text-xs sm:text-sm font-bold text-brand-charcoal cursor-pointer block">
+                        Bolsita Individual 20g
+                      </label>
+                      <span class="text-[11px] text-brand-muted">S/ 6.90 c/u</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="adjustQty('qty-snack20', -1)" class="w-7 h-7 rounded-lg bg-brand-arena font-bold flex items-center justify-center hover:bg-brand-nature/60">−</button>
+                    <input type="number" id="qty-snack20" value="2" min="1" max="50" onchange="updatePreorderSummary()" class="w-10 text-center font-bold text-xs bg-transparent border border-brand-line rounded-lg py-1">
+                    <button type="button" onclick="adjustQty('qty-snack20', 1)" class="w-7 h-7 rounded-lg bg-brand-arena font-bold flex items-center justify-center hover:bg-brand-nature/60">+</button>
+                  </div>
+                </div>
+
+                <!-- Item 100g -->
+                <div class="flex items-center justify-between p-3.5 rounded-2xl bg-brand-crema/40 border border-brand-campo/30">
+                  <div class="flex items-center gap-3">
+                    <input type="checkbox" id="check-snack100" checked onchange="updatePreorderSummary()" class="w-4 h-4 accent-brand-campo cursor-pointer">
+                    <div>
+                      <label for="check-snack100" class="text-xs sm:text-sm font-bold text-brand-charcoal cursor-pointer block">
+                        Caja Gourmet 100g
+                      </label>
+                      <span class="text-[11px] text-brand-muted">S/ 24.00 c/u</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="adjustQty('qty-snack100', -1)" class="w-7 h-7 rounded-lg bg-brand-arena font-bold flex items-center justify-center hover:bg-brand-nature/60">−</button>
+                    <input type="number" id="qty-snack100" value="1" min="1" max="50" onchange="updatePreorderSummary()" class="w-10 text-center font-bold text-xs bg-transparent border border-brand-line rounded-lg py-1">
+                    <button type="button" onclick="adjustQty('qty-snack100', 1)" class="w-7 h-7 rounded-lg bg-brand-arena font-bold flex items-center justify-center hover:bg-brand-nature/60">+</button>
+                  </div>
                 </div>
               </div>
 
-              <!-- Quantity selector -->
-              <div class="flex items-center gap-2">
-                <button type="button" onclick="adjustQty('qty-snack20', -1)" class="w-8 h-8 rounded-lg bg-brand-arena text-brand-charcoal font-bold flex items-center justify-center hover:bg-brand-nature/60">−</button>
-                <input type="number" id="qty-snack20" value="2" min="1" max="50" onchange="updatePreorderSummary()" class="w-12 text-center font-bold text-sm bg-transparent border border-brand-line rounded-lg py-1">
-                <button type="button" onclick="adjustQty('qty-snack20', 1)" class="w-8 h-8 rounded-lg bg-brand-arena text-brand-charcoal font-bold flex items-center justify-center hover:bg-brand-nature/60">+</button>
-              </div>
-            </div>
-
-            <!-- Item 2: Caja 100g -->
-            <div class="flex items-center justify-between p-4 rounded-2xl bg-brand-crema/40 border border-brand-campo/30 hover:border-brand-campo transition-colors">
-              <div class="flex items-center gap-3">
-                <input type="checkbox" id="check-snack100" checked onchange="updatePreorderSummary()" class="w-5 h-5 accent-brand-campo rounded cursor-pointer">
+              <!-- Contacto y Distrito -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label for="check-snack100" class="text-sm font-bold text-brand-charcoal cursor-pointer block">
-                    Caja Gourmet 100g (Regalo / Oficina)
-                  </label>
-                  <span class="text-xs text-brand-muted">S/ 24.00 c/u</span>
+                  <label for="preorder-name" class="block text-xs font-bold text-brand-charcoal mb-1">Nombre Completo</label>
+                  <input type="text" id="preorder-name" required placeholder="Ej. Carlos Mendoza" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-line focus:outline-none focus:border-brand-campo text-xs sm:text-sm bg-brand-marfil">
+                </div>
+                <div>
+                  <label for="preorder-district" class="block text-xs font-bold text-brand-charcoal mb-1">Distrito en Lima / Ciudad</label>
+                  <select id="preorder-district" required class="w-full px-3.5 py-2.5 rounded-xl border border-brand-line focus:outline-none focus:border-brand-campo text-xs sm:text-sm bg-brand-marfil">
+                    <option value="Miraflores">Miraflores</option>
+                    <option value="San Isidro">San Isidro</option>
+                    <option value="Santiago de Surco">Santiago de Surco</option>
+                    <option value="San Borja">San Borja</option>
+                    <option value="La Molina">La Molina</option>
+                    <option value="Barranco">Barranco</option>
+                    <option value="Magdalena / Jesús María">Magdalena / Jesús María</option>
+                    <option value="San Miguel / Pueblo Libre">San Miguel / Pueblo Libre</option>
+                    <option value="Otro Distrito en Lima">Otro Distrito en Lima</option>
+                    <option value="Envío a Provincias">Envío a Provincias</option>
+                  </select>
                 </div>
               </div>
 
-              <!-- Quantity selector -->
-              <div class="flex items-center gap-2">
-                <button type="button" onclick="adjustQty('qty-snack100', -1)" class="w-8 h-8 rounded-lg bg-brand-arena text-brand-charcoal font-bold flex items-center justify-center hover:bg-brand-nature/60">−</button>
-                <input type="number" id="qty-snack100" value="1" min="1" max="50" onchange="updatePreorderSummary()" class="w-12 text-center font-bold text-sm bg-transparent border border-brand-line rounded-lg py-1">
-                <button type="button" onclick="adjustQty('qty-snack100', 1)" class="w-8 h-8 rounded-lg bg-brand-arena text-brand-charcoal font-bold flex items-center justify-center hover:bg-brand-nature/60">+</button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Datos de Entrega -->
-          <div class="space-y-4">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-brand-campo flex items-center gap-2">
-              <i data-lucide="map-pin" class="w-4 h-4"></i> 2. Datos de Contacto y Distrito
-            </h3>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="preorder-name" class="block text-xs font-bold text-brand-charcoal mb-1">Nombre Completo</label>
-                <input type="text" id="preorder-name" required placeholder="Ej. Mariana Valdivia" class="w-full px-4 py-3 rounded-xl border border-brand-line focus:outline-none focus:border-brand-campo text-sm bg-brand-marfil">
+              <!-- Total Preview -->
+              <div class="p-4 rounded-2xl bg-brand-campo text-white flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-brand-nature uppercase font-bold block">Resumen del Pedido</span>
+                  <p id="preorder-summary-text" class="text-xs sm:text-sm font-semibold text-brand-crema">2x Bolsita 20g + 1x Caja 100g</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-brand-crema/70 block">Subtotal:</span>
+                  <span id="preorder-summary-total" class="text-2xl font-brand-title font-extrabold text-brand-lemon">S/ 37.80</span>
+                </div>
               </div>
 
-              <div>
-                <label for="preorder-district" class="block text-xs font-bold text-brand-charcoal mb-1">Distrito en Lima / Ciudad</label>
-                <select id="preorder-district" required class="w-full px-4 py-3 rounded-xl border border-brand-line focus:outline-none focus:border-brand-campo text-sm bg-brand-marfil">
-                  <option value="Miraflores">Miraflores</option>
-                  <option value="San Isidro">San Isidro</option>
-                  <option value="Surco (Santiago de Surco)">Santiago de Surco</option>
-                  <option value="San Borja">San Borja</option>
-                  <option value="La Molina">La Molina</option>
-                  <option value="Barranco">Barranco</option>
-                  <option value="Magdalena / Jesús María">Magdalena / Jesús María</option>
-                  <option value="San Miguel / Pueblo Libre">San Miguel / Pueblo Libre</option>
-                  <option value="Otro Distrito Lima">Otro Distrito en Lima</option>
-                  <option value="Envío a Provincia">Envío a Provincias (Agencia)</option>
-                </select>
-              </div>
-            </div>
+              <button type="submit" class="w-full py-4 rounded-full btn-nature text-sm font-extrabold flex items-center justify-center gap-2 cursor-pointer shadow-lg">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+                <span>Confirmar Pedido por WhatsApp (+51 981 011 816)</span>
+              </button>
+
+              <p class="text-[10px] text-center text-brand-muted">
+                Pagos aceptados: Yape, Plin, Transferencia BCP / BBVA / Interbank o Pago contraentrega.
+              </p>
+            </form>
           </div>
 
-          <!-- Resumen de Pedido & Total -->
-          <div class="p-5 rounded-2xl bg-brand-campo text-white flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <span class="text-xs text-brand-nature font-bold uppercase tracking-wide block">Resumen del Pedido</span>
-              <p id="preorder-summary-text" class="text-sm font-semibold text-brand-crema">2x Bolsita 20g + 1x Caja 100g</p>
-            </div>
-            <div class="text-right flex items-center gap-3">
-              <span class="text-xs text-brand-crema/80">Subtotal Estimado:</span>
-              <span id="preorder-summary-total" class="text-3xl font-brand-title font-extrabold text-brand-lemon">S/ 37.80</span>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="w-full py-4 rounded-full btn-nature text-base font-extrabold flex items-center justify-center gap-3 shadow-lg">
-            <i data-lucide="message-circle" class="w-5 h-5"></i>
-            <span>Enviar Pedido por WhatsApp (+51 981 011 816)</span>
-          </button>
-
-          <p class="text-[11px] text-center text-brand-muted">
-            🔒 Coordinación directa y segura. Métodos de pago disponibles: Yape, Plin, Transferencia BCP / BBVA / Interbank y Efectivo contraentrega.
-          </p>
-
-        </form>
-
-      </div>
-
+        </div>
+      </section>
     </div>
-  </section>
 
-  <!-- ==================== 11. CANAL B2B & DISTRIBUCIÓN MAYORISTA ==================== -->
-  <section id="b2b" class="py-20 sm:py-28 bg-brand-campoDark text-white border-t border-brand-line">
+    <!-- ==================== PESTAÑA 3: ORIGEN CHANCHAMAYO & LA PACARANA ==================== -->
+    <div id="tab-origen" class="tab-panel">
+      <section class="py-12 sm:py-16 bg-brand-marfil">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+          
+          <!-- Origen Header -->
+          <div class="p-8 sm:p-12 rounded-3xl bg-brand-campoDarker text-white relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              <div class="lg:col-span-7 space-y-4">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-nature/20 border border-brand-nature/40 text-brand-nature text-xs font-bold uppercase tracking-wider">
+                  Valle de Chanchamayo · Selva Central
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-crema">
+                  De las fincas de altura directo a tu mesa en Lima.
+                </h2>
+                <p class="text-xs sm:text-sm text-brand-nature/90 leading-relaxed font-light">
+                  Xiembra nace en los valles cafetaleros de Junín (entre 1,200 y 1,900 m s. n. m.). En alianza con <strong class="text-white font-semibold">Chanchamayo Highland Coffee SAC</strong>, vinculamos a más de 2,300 familias productoras con procesos agroartesanales de exportación y pago de precios justos por encima del mercado.
+                </p>
+              </div>
+
+              <div class="lg:col-span-5 grid grid-cols-2 gap-3 text-center text-xs">
+                <div class="p-4 rounded-2xl bg-brand-campo/80 border border-brand-nature/30">
+                  <strong class="block text-2xl font-brand-title text-brand-lemon">1,900 m</strong>
+                  <span class="text-brand-crema/80 uppercase text-[10px] font-bold">Altitud Máxima</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-brand-campo/80 border border-brand-nature/30">
+                  <strong class="block text-2xl font-brand-title text-brand-lemon">+2,300</strong>
+                  <span class="text-brand-crema/80 uppercase text-[10px] font-bold">Productores</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-brand-campo/80 border border-brand-nature/30">
+                  <strong class="block text-2xl font-brand-title text-brand-lemon">40,000 ha</strong>
+                  <span class="text-brand-crema/80 uppercase text-[10px] font-bold">Bosque Cafetalero</span>
+                </div>
+                <div class="p-4 rounded-2xl bg-brand-campo/80 border border-brand-nature/30">
+                  <strong class="block text-2xl font-brand-title text-brand-lemon">100%</strong>
+                  <span class="text-brand-crema/80 uppercase text-[10px] font-bold">Comercio Justo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- La Pacarana Showcase -->
+          <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-brand-crema/80 via-white to-brand-nature/30 border-2 border-brand-campo/30 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <div class="lg:col-span-5 flex justify-center">
+              <div class="relative w-52 h-52 sm:w-64 sm:h-64 rounded-3xl bg-brand-nature/30 border-2 border-brand-campo/20 p-5 flex items-center justify-center shadow-inner">
+                <img src="images/pacarana_mascot.png" 
+                     alt="La Pacarana Xiembra" 
+                     class="w-full h-full object-contain animate-float drop-shadow-xl"
+                     onerror="this.onerror=null; this.src='images/pacarana_character_raw.png'">
+                <span class="absolute -bottom-2.5 bg-brand-campo text-brand-nature text-[11px] font-bold px-3 py-0.5 rounded-full uppercase">
+                  Dinomys branickii
+                </span>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-3">
+              <span class="tag-origin">Nuestra Mascota Oficial</span>
+              <h3 class="text-2xl sm:text-3xl font-brand-title font-bold text-brand-campoDarker">
+                La Pacarana: Guardiana de la Selva Central
+              </h3>
+              <p class="text-xs sm:text-sm text-brand-muted leading-relaxed">
+                La <strong>Pacarana</strong> es un roedor autóctono y protegido de los bosques de niebla de Junín. Con su sombrero de paja campesino, pala agrícola y taza de café caliente, simboliza la laboriosidad campesina, la agricultura bajo sombra y la armonía con la Amazonía peruana.
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-bold text-brand-campoDark">
+                <div class="p-3 rounded-xl bg-white border border-brand-line flex items-center gap-2">
+                  <i data-lucide="sprout" class="w-4 h-4 text-brand-campo"></i>
+                  <span>Reforestación con árboles nativos</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-brand-line flex items-center gap-2">
+                  <i data-lucide="heart" class="w-4 h-4 text-brand-campo"></i>
+                  <span>Tributo a la tradición agrícola</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="text-center">
+            <button onclick="goToTab('tab-certificados')" class="px-8 py-3.5 rounded-full btn-campo text-xs font-bold inline-flex items-center gap-2 cursor-pointer shadow-md">
+              <span>Ver Certificaciones de Origen</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== PESTAÑA 4: CERTIFICACIONES DE ORIGEN ==================== -->
+    <div id="tab-certificados" class="tab-panel">
+      <section class="py-12 sm:py-16 bg-brand-marfil">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          
+          <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+            <span class="tag-origin">Garantía de Pureza & Sostenibilidad</span>
+            <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-campoDarker">
+              Certificaciones Internacionales del Proveedor
+            </h2>
+            <p class="text-sm text-brand-muted">
+              El café y cacao utilizados en la cadena de abastecimiento cuentan con el respaldo de los más altos estándares agrícolas internacionales.
+            </p>
+          </div>
+
+          <!-- Grid de Logos de Certificaciones (Vectores Oficiales / Logos Reales) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            
+            <!-- 1. USDA Organic -->
+            <div class="p-6 rounded-3xl card-premium flex flex-col items-center text-center space-y-3">
+              <div class="w-20 h-20 rounded-2xl bg-brand-marfil border border-brand-line flex items-center justify-center p-2 shadow-sm">
+                <!-- SVG USDA Organic Logo -->
+                <svg viewBox="0 0 100 100" class="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="48" stroke="#006148" stroke-width="3" fill="#FAF8F5"/>
+                  <circle cx="50" cy="50" r="42" fill="#006148"/>
+                  <path d="M12 50 C 20 20, 80 20, 88 50 Z" fill="#FFFFFF"/>
+                  <text x="50" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" font-weight="900" fill="#006148" text-anchor="middle">USDA</text>
+                  <text x="50" y="70" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">ORGANIC</text>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-brand-charcoal">USDA Organic</h3>
+              <p class="text-xs text-brand-muted">
+                Certificación orgánica de Estados Unidos que garantiza cultivos sin pesticidas sintéticos, fertilizantes químicos ni transgénicos.
+              </p>
+            </div>
+
+            <!-- 2. EU Organic (Euro-Leaf) -->
+            <div class="p-6 rounded-3xl card-premium flex flex-col items-center text-center space-y-3">
+              <div class="w-20 h-20 rounded-2xl bg-brand-marfil border border-brand-line flex items-center justify-center p-2 shadow-sm">
+                <!-- SVG EU Organic Logo -->
+                <svg viewBox="0 0 100 65" class="w-16 h-12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="100" height="65" rx="10" fill="#2E7D32"/>
+                  <!-- Stylized Leaf of 12 stars -->
+                  <g fill="#FFFFFF">
+                    <circle cx="50" cy="14" r="2.5"/>
+                    <circle cx="38" cy="18" r="2.5"/>
+                    <circle cx="62" cy="18" r="2.5"/>
+                    <circle cx="30" cy="27" r="2.5"/>
+                    <circle cx="70" cy="27" r="2.5"/>
+                    <circle cx="28" cy="38" r="2.5"/>
+                    <circle cx="72" cy="38" r="2.5"/>
+                    <circle cx="34" cy="48" r="2.5"/>
+                    <circle cx="66" cy="48" r="2.5"/>
+                    <circle cx="44" cy="54" r="2.5"/>
+                    <circle cx="56" cy="54" r="2.5"/>
+                    <circle cx="50" cy="34" r="2.5"/>
+                  </g>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-brand-charcoal">EU Organic (AB)</h3>
+              <p class="text-xs text-brand-muted">
+                Estándar oficial de la Unión Europea para la producción ecológica y respeto integral de la biodiversidad del suelo.
+              </p>
+            </div>
+
+            <!-- 3. Fair Trade -->
+            <div class="p-6 rounded-3xl card-premium flex flex-col items-center text-center space-y-3">
+              <div class="w-20 h-20 rounded-2xl bg-brand-marfil border border-brand-line flex items-center justify-center p-2 shadow-sm">
+                <!-- SVG Fair Trade Logo -->
+                <svg viewBox="0 0 100 100" class="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="46" fill="#111C16"/>
+                  <path d="M50 8 C 73 8, 92 27, 92 50 C 92 68, 79 83, 62 89 C 55 83, 50 72, 50 60 C 50 42, 62 30, 62 30 C 52 30, 44 38, 44 48 C 44 58, 52 66, 52 75 C 52 82, 47 88, 40 90 C 21 86, 8 70, 8 50 C 8 27, 27 8, 50 8 Z" fill="#00A3E0"/>
+                  <path d="M8 50 C 8 73, 27 92, 50 92 C 55 92, 60 91, 65 89 C 58 83, 52 74, 52 64 C 52 50, 64 38, 64 38 C 54 38, 46 46, 46 56 C 46 64, 52 70, 52 78 C 30 82, 14 68, 14 50 Z" fill="#78BE20"/>
+                  <circle cx="50" cy="30" r="7" fill="#FFFFFF"/>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-brand-charcoal">Fair Trade (Comercio Justo)</h3>
+              <p class="text-xs text-brand-muted">
+                Garantiza precios justos por encima del mercado internacional y condiciones laborales dignas para los agricultores.
+              </p>
+            </div>
+
+            <!-- 4. Rainforest Alliance -->
+            <div class="p-6 rounded-3xl card-premium flex flex-col items-center text-center space-y-3">
+              <div class="w-20 h-20 rounded-2xl bg-brand-marfil border border-brand-line flex items-center justify-center p-2 shadow-sm">
+                <!-- SVG Rainforest Alliance Frog Logo -->
+                <svg viewBox="0 0 100 100" class="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="48" fill="#006148"/>
+                  <circle cx="50" cy="50" r="38" fill="#FFFFFF"/>
+                  <!-- Frog stylized silhouette -->
+                  <path d="M50 25 C 40 25, 34 32, 34 40 C 34 48, 42 54, 42 62 C 42 68, 38 72, 36 75 C 44 76, 56 76, 64 75 C 62 72, 58 68, 58 62 C 58 54, 66 48, 66 40 C 66 32, 60 25, 50 25 Z" fill="#006148"/>
+                  <circle cx="43" cy="35" r="3.5" fill="#FFFFFF"/>
+                  <circle cx="57" cy="35" r="3.5" fill="#FFFFFF"/>
+                  <circle cx="43" cy="35" r="1.8" fill="#006148"/>
+                  <circle cx="57" cy="35" r="1.8" fill="#006148"/>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-brand-charcoal">Rainforest Alliance</h3>
+              <p class="text-xs text-brand-muted">
+                Certifica la protección de fuentes de agua, fauna silvestre amazónica y cultivo bajo dosel de sombra en la Finca Orgánica.
+              </p>
+            </div>
+
+            <!-- 5. BioEM Japón -->
+            <div class="p-6 rounded-3xl card-premium flex flex-col items-center text-center space-y-3">
+              <div class="w-20 h-20 rounded-2xl bg-brand-marfil border border-brand-line flex items-center justify-center p-2 shadow-sm">
+                <!-- SVG BioEM Logo -->
+                <svg viewBox="0 0 100 100" class="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="46" stroke="#004734" stroke-width="3" fill="#FFFCD2"/>
+                  <text x="50" y="44" font-family="'Forrest', sans-serif" font-size="20" font-weight="900" fill="#006148" text-anchor="middle">BioEM</text>
+                  <text x="50" y="62" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" font-weight="700" fill="#4D6257" text-anchor="middle">JAPÓN</text>
+                  <circle cx="50" cy="74" r="3" fill="#C5A059"/>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-brand-charcoal">BioEM (Japón)</h3>
+              <p class="text-xs text-brand-muted">
+                Tecnología de microorganismos eficaces para la regeneración natural y fertilidad biológica de los suelos agrícolas.
+              </p>
+            </div>
+
+            <!-- 6. IMO Control Perú -->
+            <div class="p-6 rounded-3xl card-premium flex flex-col items-center text-center space-y-3">
+              <div class="w-20 h-20 rounded-2xl bg-brand-marfil border border-brand-line flex items-center justify-center p-2 shadow-sm">
+                <!-- SVG IMO Control Logo -->
+                <svg viewBox="0 0 100 100" class="w-16 h-16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="50" cy="50" r="46" stroke="#006148" stroke-width="2" fill="#FAF8F5"/>
+                  <path d="M25 50 C 35 30, 65 30, 75 50 C 65 70, 35 70, 25 50 Z" fill="#CBEC8A"/>
+                  <text x="50" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="900" fill="#004734" text-anchor="middle">IMO</text>
+                  <text x="50" y="78" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="700" fill="#006148" text-anchor="middle">CONTROL</text>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-brand-charcoal">IMO Control Latinoamérica</h3>
+              <p class="text-xs text-brand-muted">
+                Auditoría y certificación de trazabilidad de origen en la planta de procesamiento (Registro N° 25-11576PE).
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Legal Card & Info -->
+          <div class="p-6 rounded-2xl bg-brand-crema/60 border border-brand-campo/20 text-center text-xs text-brand-charcoal space-y-1">
+            <p><strong>Registro Sanitario Oficial:</strong> DIGESA G100441/N-KCEPAR · <strong>RUC Productor:</strong> 20486021773</p>
+            <p class="text-brand-muted">Calidad que se cultiva con respeto, se procesa bajo estándares de exportación y se disfruta en cada bocado.</p>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== PESTAÑA 5: CANAL B2B & MAYORISTA (PRECIOS OCULTOS) ==================== -->
+    <div id="tab-b2b" class="tab-panel">
+      <section class="py-12 sm:py-16 bg-brand-campoDark text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            <div class="lg:col-span-6 space-y-5">
+              <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-nature/20 border border-brand-nature/40 text-brand-nature text-xs font-bold uppercase tracking-wider">
+                Ventas Corporativas & Retail
+              </span>
+              <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-crema">
+                Lleva XIEMBRA a tu cafetería, biomarket o tienda gourmet en Lima.
+              </h2>
+              <p class="text-xs sm:text-sm text-brand-nature/90 leading-relaxed font-light">
+                Un producto diferenciador que combina dos categorías de alta afinidad: café de especialidad y cacao nativo. Diseñado para alta rotación en counter de pago y cartas gourmet.
+              </p>
+
+              <div class="space-y-3 text-xs text-brand-crema/90">
+                <div class="flex items-center gap-3">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-brand-nature shrink-0"></i>
+                  <span><strong>Condiciones Mayoristas Preferenciales:</strong> Descuentos escalonados por volumen y facilidades de pago.</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-brand-nature shrink-0"></i>
+                  <span><strong>Listo para góndola:</strong> Código de barras EAN asignado, registro sanitario y marca registrada.</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-brand-nature shrink-0"></i>
+                  <span><strong>Material de Degustación y POP:</strong> Soporte para impulsar la prueba de producto en tu local.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Formulario de Solicitud B2B (Precios B2B Ocultos al público) -->
+            <div class="lg:col-span-6">
+              <div class="p-8 rounded-3xl bg-brand-campoDarker border-2 border-brand-nature/40 space-y-5 shadow-2xl">
+                <div class="border-b border-brand-nature/20 pb-3">
+                  <h3 class="text-xl font-brand-title font-bold text-brand-lemon">
+                    Solicitar Catálogo y Lista de Precios B2B
+                  </h3>
+                  <p class="text-xs text-brand-crema/70 mt-1">
+                    Ingresa los datos de tu empresa para recibir la propuesta comercial mayorista.
+                  </p>
+                </div>
+
+                <form onsubmit="handleB2BSubmit(event)" class="space-y-4 text-xs">
+                  <div>
+                    <label class="block text-brand-crema font-bold mb-1">Nombre o Empresa / Cafetería</label>
+                    <input type="text" id="b2b-company" required placeholder="Ej. Cafetería Origen / Biomarket Verde" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-campo text-white placeholder-brand-crema/40 border border-brand-nature/30 focus:outline-none focus:border-brand-lemon text-xs">
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-brand-crema font-bold mb-1">RUC (Opcional)</label>
+                      <input type="text" id="b2b-ruc" placeholder="Ej. 20601234567" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-campo text-white placeholder-brand-crema/40 border border-brand-nature/30 focus:outline-none focus:border-brand-lemon text-xs">
+                    </div>
+                    <div>
+                      <label class="block text-brand-crema font-bold mb-1">Canal de Venta</label>
+                      <select id="b2b-channel" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-campo text-white border border-brand-nature/30 focus:outline-none focus:border-brand-lemon text-xs">
+                        <option value="Cafetería de Especialidad">Cafetería de Especialidad</option>
+                        <option value="Biomarket / Tienda Saludable">Biomarket / Tienda Saludable</option>
+                        <option value="Regalos Corporativos">Regalos Corporativos</option>
+                        <option value="Hotel / Boutique">Hotel / Boutique</option>
+                        <option value="Distribuidor Regional">Distribuidor Regional</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-brand-crema font-bold mb-1">Formato de Interés</label>
+                    <select id="b2b-format" class="w-full px-3.5 py-2.5 rounded-xl bg-brand-campo text-white border border-brand-nature/30 focus:outline-none focus:border-brand-lemon text-xs">
+                      <option value="Ambos Formatos (20g y 100g)">Ambos Formatos (Bolsita 20g + Caja 100g)</option>
+                      <option value="Bolsita 20g (Impulso / Counter)">Bolsita 20g (Impulso / Counter)</option>
+                      <option value="Caja 100g (Regalo / Exhibición)">Caja 100g (Regalo / Exhibición)</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="w-full py-3.5 rounded-full btn-nature text-xs font-extrabold flex items-center justify-center gap-2 cursor-pointer shadow-lg mt-2">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Solicitar Lista de Precios por WhatsApp</span>
+                  </button>
+                </form>
+
+                <div class="pt-3 border-t border-brand-nature/20 text-[11px] text-brand-crema/70 flex justify-between items-center">
+                  <span>Atención Comercial: Rogger Espinoza</span>
+                  <a href="https://wa.me/51981011816" target="_blank" class="text-brand-lemon underline font-bold">+51 981 011 816</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER & LEGAL ==================== -->
+  <footer class="bg-brand-campoDarker text-white pt-12 pb-8 text-xs border-t-4 border-brand-nature">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-8">
         
-        <div class="lg:col-span-6 space-y-6 reveal">
-          <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-nature/20 border border-brand-nature/40 text-brand-nature text-xs font-bold uppercase tracking-wider">
-            Canal B2B & Distribuidores
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-crema leading-tight">
-            ¿Tienes una cafetería, biomarket o tienda gourmet en Lima?
-          </h2>
-          <p class="text-sm sm:text-base text-brand-nature/90 leading-relaxed font-light">
-            Xiembra es el complemento perfecto para el counter de pago y cartas de especialidad. Combina dos categorías de alta afinidad: café de altura y chocolate bitter con alto margen comercial para tu negocio.
-          </p>
-
-          <div class="space-y-3 text-xs sm:text-sm text-brand-crema/90">
-            <div class="flex items-center gap-3">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-nature shrink-0"></i>
-              <span><strong>Precios B2B competitivos:</strong> Bolsita 20g a S/ 4.80 | Caja 100g a S/ 17.50</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-nature shrink-0"></i>
-              <span><strong>Listo para comercializar:</strong> Código de barras EAN, registro sanitario y marca registrada.</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <i data-lucide="check-circle" class="w-5 h-5 text-brand-nature shrink-0"></i>
-              <span><strong>Material POP y degustación:</strong> Apoyo promocional para tu punto de venta.</span>
-            </div>
-          </div>
-
-          <div class="pt-4 flex flex-col sm:flex-row gap-4">
-            <a href="https://wa.me/51981011816?text=Hola%20XIEMBRA!%20Deseo%20informaci%C3%B3n%20para%20distribuci%C3%B3n%20B2B%20en%20mi%20tienda/cafeter%C3%ADa." 
-               target="_blank"
-               class="px-8 py-4 rounded-full btn-nature text-sm font-bold text-center flex items-center justify-center gap-2">
-              <i data-lucide="briefcase" class="w-4 h-4"></i>
-              <span>Solicitar Catálogo Mayorista</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Tarjeta Resumen B2B -->
-        <div class="lg:col-span-6 reveal">
-          <div class="p-8 rounded-3xl bg-brand-campoDarker border-2 border-brand-nature/40 space-y-6 shadow-2xl">
-            <h3 class="text-xl font-brand-title font-bold text-brand-lemon border-b border-brand-nature/20 pb-3">
-              Ficha Comercial Mayorista (B2B)
-            </h3>
-
-            <div class="space-y-4 text-xs">
-              <div class="flex justify-between items-center py-2 border-b border-white/10">
-                <span class="text-brand-crema/80">Razón Social:</span>
-                <strong class="text-white font-mono">Xiembra Agroindustrial S.A.C.</strong>
-              </div>
-              <div class="flex justify-between items-center py-2 border-b border-white/10">
-                <span class="text-brand-crema/80">RUC:</span>
-                <strong class="text-brand-lemon font-mono">20616165365</strong>
-              </div>
-              <div class="flex justify-between items-center py-2 border-b border-white/10">
-                <span class="text-brand-crema/80">Maquila & Origen:</span>
-                <strong class="text-white">Chanchamayo Highland Coffee SAC</strong>
-              </div>
-              <div class="flex justify-between items-center py-2 border-b border-white/10">
-                <span class="text-brand-crema/80">Registro Sanitario:</span>
-                <strong class="text-white font-mono">G100441/N-KCEPAR</strong>
-              </div>
-              <div class="flex justify-between items-center py-2 border-b border-white/10">
-                <span class="text-brand-crema/80">Contacto Comercial:</span>
-                <strong class="text-brand-nature">Rogger Espinoza · +51 981 011 816</strong>
-              </div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-brand-campo text-xs text-brand-crema space-y-1">
-              <span class="font-bold text-brand-lemon block">Canales Priorizados en Lima:</span>
-              <p>Biomarkets (San Isidro, Miraflores, Surco), Cafeterías de Especialidad, Boutiques Gourmet, Hoteles y Cajas de Bienvenida Corporativas.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== 12. PREGUNTAS FRECUENTES (FAQ) ==================== -->
-  <section class="py-20 sm:py-24 bg-brand-marfil border-t border-brand-line">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      
-      <div class="text-center space-y-3 mb-12 reveal">
-        <span class="tag-origin">Dudas Frecuentes</span>
-        <h2 class="text-3xl sm:text-4xl font-brand-title font-bold text-brand-campoDarker">
-          Preguntas sobre XIEMBRA
-        </h2>
-      </div>
-
-      <div class="space-y-4 reveal">
-        
-        <details class="p-6 rounded-2xl bg-white border border-brand-line group cursor-pointer shadow-sm">
-          <summary class="flex justify-between items-center font-bold text-brand-charcoal text-sm sm:text-base">
-            <span>¿Por qué el producto tiene la advertencia de grasa saturada?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mt-4 pt-4 border-t border-brand-line">
-            Nuestro producto lleva la advertencia reglamentaria debido a la <strong>manteca de cacao pura</strong>, que es una grasa natural de origen botánico rica en ácido esteárico. No contiene grasas trans, aceites hidrogenados ni sustitutos de palma.
-          </p>
-        </details>
-
-        <details class="p-6 rounded-2xl bg-white border border-brand-line group cursor-pointer shadow-sm">
-          <summary class="flex justify-between items-center font-bold text-brand-charcoal text-sm sm:text-base">
-            <span>¿Cómo se siente la textura del café tostado al masticar?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mt-4 pt-4 border-t border-brand-line">
-            El grano de café es tostado especialmente con curvas de aire caliente que logran un <strong>crujido suave, friable y aromático</strong>. No es duro ni astilloso: se funde armoniosamente con la capa de chocolate amargo 65%.
-          </p>
-        </details>
-
-        <details class="p-6 rounded-2xl bg-white border border-brand-line group cursor-pointer shadow-sm">
-          <summary class="flex justify-between items-center font-bold text-brand-charcoal text-sm sm:text-base">
-            <span>¿Cuánto tiempo demora la entrega en Lima?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mt-4 pt-4 border-t border-brand-line">
-            Las entregas en Lima Metropolitana (Miraflores, San Isidro, Surco, San Borja, La Molina, Barranco, etc.) se realizan en un plazo de <strong>24 a 48 horas hábiles</strong> tras confirmar el pedido por WhatsApp.
-          </p>
-        </details>
-
-        <details class="p-6 rounded-2xl bg-white border border-brand-line group cursor-pointer shadow-sm">
-          <summary class="flex justify-between items-center font-bold text-brand-charcoal text-sm sm:text-base">
-            <span>¿Cuál es el tiempo de vida útil y cómo almacenarlo?</span>
-            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo group-open:rotate-180 transition-transform"></i>
-          </summary>
-          <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mt-4 pt-4 border-t border-brand-line">
-            Tienen una vida útil garantizada de <strong>12 meses</strong>. Se recomienda almacenar en un lugar fresco y seco (entre 16°C y 20°C), protegido de la luz solar directa y olores fuertes.
-          </p>
-        </details>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== 13. FOOTER & LEGAL ==================== -->
-  <footer class="bg-brand-campoDarker text-white pt-16 pb-12 text-xs border-t-4 border-brand-nature">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
-        
-        <div class="md:col-span-5 space-y-4">
-          <img src="images/logo_xiembra_perfect_light.png" alt="XIEMBRA" class="h-10 w-auto">
+        <div class="md:col-span-5 space-y-3">
+          <img src="images/logo_xiembra_perfect_light.png" alt="XIEMBRA" class="h-9 w-auto" onerror="this.onerror=null; this.src='images/logo_xiembra_brand_nature.png'">
           <p class="text-brand-nature/80 text-xs leading-relaxed max-w-sm">
-            Functional snacks y café de especialidad de origen directo del Valle de Chanchamayo, Región Junín, Perú. Conectando la tierra con el consumidor consciente.
+            Functional snacks y café de especialidad de origen directo del Valle de Chanchamayo, Junín, Perú. Conectando la tierra con el consumidor consciente.
           </p>
-          <strong class="text-brand-nature block text-xs tracking-wider uppercase">Hecho con orgullo en el Perú 🇵🇪</strong>
+          <strong class="text-brand-nature block text-xs uppercase tracking-wider">Hecho con orgullo en el Perú 🇵🇪</strong>
         </div>
 
-        <div class="md:col-span-3 space-y-3">
-          <strong class="block text-sm font-brand-title text-brand-nature uppercase tracking-wider mb-2">Navegación</strong>
-          <ul class="space-y-2 text-brand-crema/80">
-            <li><a href="#propuesta" class="hover:text-brand-nature transition-colors">La Propuesta Funcional</a></li>
-            <li><a href="#grajeas" class="hover:text-brand-nature transition-colors">Bolsita 20g & Caja 100g</a></li>
-            <li><a href="#anatomia" class="hover:text-brand-nature transition-colors">4 Ingredientes Limpios</a></li>
-            <li><a href="#origen" class="hover:text-brand-nature transition-colors">Fincas de Chanchamayo</a></li>
-            <li><a href="#pacarana" class="hover:text-brand-nature transition-colors">La Pacarana</a></li>
-            <li><a href="#b2b" class="hover:text-brand-nature transition-colors">Distribución B2B</a></li>
+        <div class="md:col-span-3 space-y-2">
+          <strong class="block text-xs font-brand-title text-brand-nature uppercase tracking-wider mb-2">Secciones Rápidas</strong>
+          <ul class="space-y-1.5 text-brand-crema/80">
+            <li><button onclick="goToTab('tab-inicio')" class="hover:text-brand-nature cursor-pointer">🌟 Inicio & Propuesta</button></li>
+            <li><button onclick="goToTab('tab-catalogo')" class="hover:text-brand-nature cursor-pointer">🛍️ Catálogo 20g & 100g</button></li>
+            <li><button onclick="goToTab('tab-origen')" class="hover:text-brand-nature cursor-pointer">🌿 Origen Chanchamayo</button></li>
+            <li><button onclick="goToTab('tab-certificados')" class="hover:text-brand-nature cursor-pointer">🏅 Certificaciones</button></li>
+            <li><button onclick="goToTab('tab-b2b')" class="hover:text-brand-nature cursor-pointer">💼 Canal B2B Mayorista</button></li>
           </ul>
         </div>
 
-        <div class="md:col-span-4 space-y-3">
-          <strong class="block text-sm font-brand-title text-brand-nature uppercase tracking-wider mb-2">Contacto Directo</strong>
-          <ul class="space-y-2 text-brand-crema/80">
-            <li><a href="#preorden" class="hover:text-brand-nature font-bold text-brand-lemon">Iniciar Pedido en Lima</a></li>
-            <li><a href="https://wa.me/51981011816" target="_blank" class="hover:text-brand-nature">+51 981 011 816</a> / <a href="https://wa.me/51996442444" target="_blank" class="hover:text-brand-nature">+51 996 442 444</a></li>
+        <div class="md:col-span-4 space-y-2">
+          <strong class="block text-xs font-brand-title text-brand-nature uppercase tracking-wider mb-2">Contacto Oficial</strong>
+          <ul class="space-y-1.5 text-brand-crema/80">
+            <li><a href="https://wa.me/51981011816" target="_blank" class="hover:text-brand-lemon font-bold">+51 981 011 816</a> / <a href="https://wa.me/51996442444" target="_blank" class="hover:text-brand-lemon font-bold">+51 996 442 444</a></li>
             <li><a href="mailto:xiembra.peru@gmail.com" class="hover:text-brand-nature">xiembra.peru@gmail.com</a></li>
             <li><a href="https://instagram.com/xiembra" target="_blank" class="hover:text-brand-lemon underline font-bold">@xiembra en Instagram</a></li>
           </ul>
@@ -1158,15 +1136,15 @@
 
       </div>
 
-      <div class="pt-8 border-t border-brand-nature/20 flex flex-col sm:flex-row justify-between items-center gap-4 text-brand-crema/70 text-[11px]">
+      <div class="pt-6 border-t border-brand-nature/20 flex flex-col sm:flex-row justify-between items-center gap-2 text-brand-crema/60 text-[10px]">
         <p>Xiembra Agroindustrial S.A.C. · RUC 20616165365 · Lima, Perú</p>
-        <p>© 2026 XIEMBRA. Todos los derechos reservados. Marca Registrada.</p>
+        <p>© 2026 XIEMBRA. Todos los derechos reservados.</p>
       </div>
 
     </div>
   </footer>
 
-  <!-- ==================== 14. FLOATING WHATSAPP BUTTON ==================== -->
+  <!-- ==================== FLOATING WHATSAPP BUTTON ==================== -->
   <aside class="fixed bottom-6 right-6 z-40 flex items-center gap-3">
     <div class="hidden sm:flex items-center px-4 py-2 rounded-full bg-brand-campoDarker text-white text-xs border border-brand-nature/40 shadow-2xl backdrop-blur-md">
       <span class="w-2.5 h-2.5 rounded-full bg-brand-nature mr-2 animate-ping"></span>
@@ -1181,31 +1159,96 @@
     </a>
   </aside>
 
-  <!-- ==================== JAVASCRIPT: LOGIC & INTERACTIONS ==================== -->
+  <!-- ==================== JAVASCRIPT: TAB NAVIGATION & CHECKOUT ==================== -->
   <script>
     // Initialize Lucide icons
     lucide.createIcons();
 
-    // Scroll Reveal Observer
-    const reveals = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+    // Tab Navigation Logic with Smooth Animations
+    function goToTab(tabId) {
+      const allTabs = ['tab-inicio', 'tab-catalogo', 'tab-origen', 'tab-certificados', 'tab-b2b'];
+      
+      allTabs.forEach(id => {
+        const panel = document.getElementById(id);
+        const navBtn = document.getElementById('nav-' + id);
+        
+        if (panel) {
+          if (id === tabId) {
+            panel.classList.add('active');
+          } else {
+            panel.classList.remove('active');
+          }
+        }
+        
+        if (navBtn) {
+          if (id === tabId) {
+            navBtn.classList.add('active');
+          } else {
+            navBtn.classList.remove('active');
+          }
         }
       });
-    }, { threshold: 0.1 });
 
-    reveals.forEach(el => revealObserver.observe(el));
+      // Update URL hash without jumping
+      if (history.pushState) {
+        history.pushState(null, null, '#' + tabId.replace('tab-', ''));
+      }
 
-    // Mobile Menu Toggle
+      // Smooth scroll to top of main content
+      const main = document.getElementById('main-content');
+      if (main) {
+        window.scrollTo({
+          top: main.offsetTop - 90,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    // Toggle Mobile Drawer
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) {
+        menu.classList.toggle('hidden');
+      }
+    }
+
     const mobileBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileBtn && mobileMenu) {
-      mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-      mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-      });
+    if (mobileBtn) {
+      mobileBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    // Direct product selector from cards
+    function selectProductAndScroll(type) {
+      goToTab('tab-catalogo');
+      if (type === 'snack20') {
+        document.getElementById('check-snack20').checked = true;
+      } else if (type === 'snack100') {
+        document.getElementById('check-snack100').checked = true;
+      }
+      updatePreorderSummary();
+      
+      setTimeout(() => {
+        const box = document.getElementById('checkout-box');
+        if (box) {
+          box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 200);
+    }
+
+    function selectPackDuo() {
+      goToTab('tab-catalogo');
+      document.getElementById('check-snack20').checked = true;
+      document.getElementById('qty-snack20').value = 3;
+      document.getElementById('check-snack100').checked = true;
+      document.getElementById('qty-snack100').value = 1;
+      updatePreorderSummary();
+
+      setTimeout(() => {
+        const box = document.getElementById('checkout-box');
+        if (box) {
+          box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 200);
     }
 
     // Quantities and Subtotal Calculation
@@ -1250,6 +1293,7 @@
       }
     }
 
+    // Preorder WhatsApp Submit
     function handlePreorderSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('preorder-name').value;
@@ -1263,10 +1307,36 @@
 • Subtotal Estimado: ${summaryTotal}
 • Nombre: ${name}
 • Distrito/Ciudad: ${district}
-¿Cómo podemos coordinar el envío?`;
+¿Cómo podemos coordinar la entrega?`;
 
       window.open(`https://wa.me/51981011816?text=${encodeURIComponent(msg)}`, '_blank');
     }
+
+    // B2B Wholesale Request Submit (WhatsApp)
+    function handleB2BSubmit(e) {
+      e.preventDefault();
+      const company = document.getElementById('b2b-company').value;
+      const ruc = document.getElementById('b2b-ruc').value || 'No especificado';
+      const channel = document.getElementById('b2b-channel').value;
+      const format = document.getElementById('b2b-format').value;
+
+      const msg = `¡Hola XIEMBRA! Deseo solicitar el catálogo y lista de precios mayoristas B2B:
+• Empresa/Local: ${company}
+• RUC: ${ruc}
+• Canal de Venta: ${channel}
+• Formato de Interés: ${format}
+Quedo atento a la información comercial.`;
+
+      window.open(`https://wa.me/51981011816?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Handle initial URL hash on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && ['inicio', 'catalogo', 'origen', 'certificados', 'b2b'].includes(hash)) {
+        goToTab('tab-' + hash);
+      }
+    });
 
     updatePreorderSummary();
   </script>
