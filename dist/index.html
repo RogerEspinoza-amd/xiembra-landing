@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XIEMBRA | Functional Snacks & Specialty Coffee · Chanchamayo Perú</title>
+  <meta name="description" content="Energía natural de la Selva Central en cada bocado. Functional Snacks que combinan 65% Cacao Nativo y Café de Especialidad del Valle de Chanchamayo. Sin azúcar refinada, sin bajones.">
+  <meta name="keywords" content="Xiembra, chocolate con cafe, snacks funcionales, cacao nativo, cafe de especialidad, Chanchamayo, superfood peruano, nootropico natural">
+  
+  <!-- Open Graph / Redes Sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="XIEMBRA · Functional Snacks & Specialty Coffee">
+  <meta property="og:description" content="Energía natural de la Selva Central en cada bocado. Cacao Nativo 65% y Café de Especialidad de Chanchamayo.">
+  <meta property="og:image" content="images/xiembra_logo_pacarana_full.jpg">
+  <link rel="icon" type="image/jpeg" href="images/logo_xiembra_nature.jpg">
+
+  <!-- Preload de Recursos Críticos -->
+  <link rel="preload" href="fonts/forrest-bold.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="fonts/ut-marmalade-bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="images/logo_xiembra_nature.jpg" as="image">
+
+  <!-- Fallback Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Supabase JS Client (Listo para BD de Leads) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              campo: '#006148',        // Primario / Branding
+              campoDark: '#004432',    // Verde profundo
+              campoDarker: '#002D21',  // Verde bosque oscuro
+              nature: '#CBEC8A',       // Secundario / Badges
+              natureDark: '#9BC747',   // Verde Nature hover
+              lemon: '#FFFC88',        // Acento / Energía
+              crema: '#FFFCD2',        // Crema Rancho
+              marfil: '#FAF8F5',       // Fondo base orgánico
+              arena: '#F3EFE6',        // Fondo neutro cálido
+              borde: '#E2DBD0',        // Bordes suaves
+              bordeDark: '#1A4D3B',    // Bordes verde profundo
+              dark: '#121212',         // Negro mate
+              charcoal: '#222B27',     // Texto secundario
+              muted: '#62736B'         // Texto atenuado
+            }
+          },
+          fontFamily: {
+            marmalade: ['"UT Marmalade"', '"Playfair Display"', 'Georgia', 'serif'],
+            forrest: ['"Forrest"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            sequel: ['"Sequel Sans"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'UT Marmalade';
+      src: url('fonts/ut-marmalade-bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Forrest';
+      src: url('fonts/forrest-medium.otf') format('opentype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Forrest';
+      src: url('fonts/forrest-bold.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Forrest';
+      src: url('fonts/forrest-extrabold.otf') format('opentype');
+      font-weight: 800;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Sequel Sans';
+      src: url('fonts/sequel-sans-light.ttf') format('truetype'),
+           url('fonts/Sequel%20Sans%20Light%20Head.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Sequel Sans';
+      src: url('fonts/sequel-sans-medium.ttf') format('truetype'),
+           url('fonts/Sequel%20Sans%20Medium%20Head.ttf') format('truetype');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Sequel Sans';
+      src: url('fonts/sequel-sans-bold.ttf') format('truetype'),
+           url('fonts/Sequel%20Sans%20Bold%20Head.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    body {
+      font-family: 'Sequel Sans', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #FAF8F5;
+      color: #121212;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Forrest', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .font-marmalade {
+      font-family: 'UT Marmalade', 'Playfair Display', Georgia, serif;
+    }
+
+    /* Glass & Visual Accents */
+    .glass-nav {
+      background: rgba(250, 248, 245, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 2px solid rgba(0, 97, 72, 0.15);
+    }
+
+    .nature-glow {
+      box-shadow: 0 10px 30px -10px rgba(203, 236, 138, 0.45);
+    }
+
+    .campo-glow {
+      box-shadow: 0 15px 35px -10px rgba(0, 97, 72, 0.35);
+    }
+
+    .floating-card {
+      filter: drop-shadow(0 20px 30px rgba(0, 45, 33, 0.12));
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    }
+    .floating-card:hover {
+      transform: translateY(-8px);
+      filter: drop-shadow(0 28px 40px rgba(0, 45, 33, 0.18));
+    }
+
+    .bg-topo {
+      background-image: radial-gradient(rgba(0, 97, 72, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF8F5;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBEC8A;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #006148;
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-nature selection:text-brand-campoDark antialiased bg-topo">
+
+  <!-- ==================== 1. NAVBAR ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-nav" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+      
+      <!-- Brand Logo con Máxima Visibilidad -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="h-14 sm:h-16 flex items-center transition-transform group-hover:scale-105">
+          <img src="images/logo_xiembra_nature.jpg" 
+               alt="XIEMBRA Logo" 
+               class="h-12 sm:h-14 w-auto rounded-2xl object-contain shadow-md border-2 border-brand-campo"
+               width="150" height="56">
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-bold text-brand-charcoal">
+        <a href="#origen" class="hover:text-brand-campo transition-colors duration-200">Origen</a>
+        <a href="#grajeas" class="hover:text-brand-campo transition-colors duration-200">Grajeas</a>
+        <a href="#pacarana" class="hover:text-brand-campo transition-colors duration-200 flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-brand-nature"></span> Pacarana
+        </a>
+        <a href="#shift" class="hover:text-brand-campo transition-colors duration-200">The Shift</a>
+        <a href="#trazabilidad" class="hover:text-brand-campo transition-colors duration-200">Trazabilidad</a>
+        <a href="#b2b" class="text-brand-campo hover:text-brand-campoDark transition-colors duration-200 flex items-center gap-1.5 bg-brand-crema px-3.5 py-1.5 rounded-full border border-brand-nature font-bold">
+          <i data-lucide="store" class="w-4 h-4 text-brand-campo"></i> Venta B2B
+        </a>
+      </nav>
+
+      <!-- Action CTA Button -->
+      <div class="hidden sm:flex items-center gap-4">
+        <a href="https://wa.me/51981011816?text=Hola%20Xiembra!%20Deseo%20hacer%20un%20pedido%20de%20Grajeas%20de%20Cacao%20con%20Caf%C3%A9." 
+           target="_blank" 
+           rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-campo hover:bg-brand-campoDark text-brand-nature font-bold text-xs tracking-wider uppercase transition-all duration-300 hover:scale-105 shadow-md shadow-brand-campo/25">
+          <i data-lucide="message-circle" class="w-4 h-4 text-brand-nature"></i>
+          <span>Pedir por WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-brand-campo p-2 rounded-xl hover:bg-brand-crema focus:outline-none" aria-label="Abrir Menú">
+        <i data-lucide="menu" class="w-7 h-7"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-marfil border-b border-brand-borde px-6 py-6 space-y-4 shadow-xl">
+      <div class="pb-3 border-b border-brand-borde flex items-center justify-between">
+        <img src="images/logo_xiembra_nature.jpg" alt="XIEMBRA" class="h-10 w-auto rounded-xl">
+        <span class="text-xs font-bold text-brand-campo">Functional Snacks</span>
+      </div>
+      <a href="#origen" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">Origen & Terroir</a>
+      <a href="#grajeas" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">Grajeas Funcionales</a>
+      <a href="#pacarana" class="block text-base font-bold text-brand-campo hover:text-brand-campoDark py-1">El Personaje: La Pacarana</a>
+      <a href="#shift" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">The Shift: Snack Limpio</a>
+      <a href="#trazabilidad" class="block text-base font-bold text-brand-charcoal hover:text-brand-campo py-1">Trazabilidad Radical</a>
+      <a href="#b2b" class="block text-base font-bold text-brand-campo py-1">Canal B2B & Cafeterías</a>
+      <div class="pt-4 border-t border-brand-borde">
+        <a href="https://wa.me/51981011816?text=Hola%20Xiembra!%20Deseo%20hacer%20un%20pedido." 
+           class="w-full flex justify-center items-center gap-2 px-6 py-3.5 rounded-xl bg-brand-campo text-brand-nature font-bold text-sm">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          Pedir por WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 2. HERO SECTION ==================== -->
+  <section id="hero" class="relative pt-36 pb-20 md:pt-44 md:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    
+    <!-- Ambient Background Glows -->
+    <div class="absolute top-16 right-0 w-[550px] h-[550px] bg-brand-nature/30 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+    <div class="absolute bottom-0 left-0 w-[450px] h-[450px] bg-brand-lemon/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Columna Izquierda: Copywriting D2C & Badges -->
+      <div class="lg:col-span-7 space-y-6 z-10">
+        
+        <!-- Terroir Pill Badge (#CBEC8A) -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand-nature text-brand-campoDark text-xs font-bold tracking-wider uppercase shadow-sm">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-campo opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-campo"></span>
+          </span>
+          Valle de Chanchamayo · Junín, Perú (1,200 – 1,900 msnm)
+        </div>
+
+        <!-- H1 con Tipografía de Marca Oficial: UT Marmalade + Forrest -->
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-campoDarker tracking-tight leading-[1.08]">
+          <span class="font-marmalade text-brand-campo text-5xl sm:text-6xl lg:text-7xl block mb-2 tracking-normal drop-shadow-sm">
+            Energía natural
+          </span>
+          de la Selva Central en cada bocado.
+        </h1>
+
+        <!-- Subtítulo Oficial -->
+        <p class="text-lg md:text-xl text-brand-charcoal font-normal leading-relaxed max-w-2xl">
+          Functional Snacks que combinan <strong class="text-brand-campo font-bold">65% Cacao Nativo</strong> y <strong class="text-brand-campo font-bold">Café de Especialidad</strong> del Valle de Chanchamayo. Sin azúcar refinada, sin bajones.
+        </p>
+
+        <!-- CTA Buttons Group -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <a href="https://wa.me/51981011816?text=Hola%20Xiembra,%20deseo%20comprar%20ahora%20Grajeas%20de%20Chocolate%20con%20Caf%C3%A9." 
+             target="_blank"
+             class="inline-flex justify-center items-center gap-3 px-8 py-4 rounded-2xl bg-brand-campo text-brand-nature font-bold text-base hover:bg-brand-campoDark transition-all duration-300 campo-glow group">
+            <i data-lucide="shopping-bag" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+            <span>Comprar Ahora (WhatsApp)</span>
+          </a>
+          <a href="#origen" 
+             class="inline-flex justify-center items-center gap-2 px-8 py-4 rounded-2xl bg-white border-2 border-brand-campo/20 text-brand-campoDark font-bold text-base hover:bg-brand-crema/60 hover:border-brand-campo transition-all duration-300 shadow-sm">
+            <span>Conoce Nuestro Origen</span>
+            <i data-lucide="arrow-down" class="w-4 h-4 text-brand-campo"></i>
+          </a>
+        </div>
+
+        <!-- Badges de Confianza (#CBEC8A) -->
+        <div class="pt-6 border-t border-brand-borde grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/80 border border-brand-borde">
+            <div class="w-7 h-7 rounded-lg bg-brand-nature flex items-center justify-center text-brand-campo shrink-0">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </div>
+            <span class="text-brand-charcoal leading-tight"><strong>65% Cacao</strong><br>Nativo</span>
+          </div>
+
+          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/80 border border-brand-borde">
+            <div class="w-7 h-7 rounded-lg bg-brand-nature flex items-center justify-center text-brand-campo shrink-0">
+              <i data-lucide="coffee" class="w-4 h-4"></i>
+            </div>
+            <span class="text-brand-charcoal leading-tight"><strong>Specialty</strong><br>Coffee</span>
+          </div>
+
+          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/80 border border-brand-borde">
+            <div class="w-7 h-7 rounded-lg bg-brand-nature flex items-center justify-center text-brand-campo shrink-0">
+              <i data-lucide="map-pin" class="w-4 h-4"></i>
+            </div>
+            <span class="text-brand-charcoal leading-tight"><strong>Valle de</strong><br>Chanchamayo</span>
+          </div>
+
+          <div class="flex items-center gap-2.5 p-2 rounded-xl bg-white/80 border border-brand-borde">
+            <div class="w-7 h-7 rounded-lg bg-brand-nature flex items-center justify-center text-brand-campo shrink-0">
+              <i data-lucide="leaf" class="w-4 h-4"></i>
+            </div>
+            <span class="text-brand-charcoal leading-tight"><strong>100% Selva</strong><br>Central</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Columna Derecha: Mockup Real 100g en Entorno Natural -->
+      <div class="lg:col-span-5 relative flex justify-center items-center">
+        
+        <!-- Halo Dorado/Nature -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-nature/40 to-brand-lemon/30 rounded-3xl blur-2xl -rotate-2 scale-95 pointer-events-none"></div>
+
+        <!-- Tarjeta Flotante Hero con Mockup Real 100g en Entorno Natural -->
+        <div class="relative w-full max-w-md bg-white border-2 border-brand-campo/20 rounded-3xl p-6 shadow-2xl space-y-5 floating-card">
+          
+          <div class="flex justify-between items-center">
+            <span class="px-3.5 py-1 rounded-full bg-brand-campo text-brand-nature font-extrabold text-[11px] uppercase tracking-wider">
+              Lanzamiento Oficial
+            </span>
+            <span class="text-xs text-brand-campo font-bold flex items-center gap-1 bg-brand-nature/40 px-2.5 py-1 rounded-full">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-brand-campo"></i> 100% Selva Central
+            </span>
+          </div>
+
+          <!-- Imagen del Mockup Real 100g en la Selva -->
+          <div class="relative aspect-square w-full rounded-2xl bg-brand-dark overflow-hidden border border-brand-borde shadow-inner group">
+            <img src="images/mockup100g_opt.jpg" 
+                 alt="XIEMBRA Caja 100g en Finca de Chanchamayo" 
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                 width="400" height="400" fetchpriority="high">
+            
+            <div class="absolute bottom-3 left-3 right-3 bg-brand-campoDark/90 backdrop-blur-md text-brand-nature px-3.5 py-2 rounded-xl text-xs font-bold border border-brand-nature/30 shadow-md flex items-center justify-between">
+              <span>🍫 Cobertura 65% Cacao</span>
+              <span class="text-brand-lemon">☕ Grano de Café Tostado</span>
+            </div>
+          </div>
+
+          <div class="text-center space-y-1">
+            <h3 class="text-2xl font-bold text-brand-campoDark font-marmalade">Grajeas Chocobites</h3>
+            <p class="text-xs text-brand-muted">Crujiente café de altura bañado artesanalmente en chocolate bitter con panela orgánica.</p>
+          </div>
+
+          <!-- Stats Strip -->
+          <div class="bg-brand-arena/70 border border-brand-borde rounded-2xl p-3 grid grid-cols-3 gap-2 text-center text-xs">
+            <div>
+              <span class="block text-brand-campo font-bold text-sm">20g & 100g</span>
+              <span class="text-brand-muted text-[10px]">Formatos</span>
+            </div>
+            <div class="border-x border-brand-borde">
+              <span class="block text-brand-campo font-bold text-sm">Panela</span>
+              <span class="text-brand-muted text-[10px]">Endulzante</span>
+            </div>
+            <div>
+              <span class="block text-brand-campo font-bold text-sm">+2,300</span>
+              <span class="text-brand-muted text-[10px]">Familias</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SECCIÓN EXCLUSIVA: EL PERSONAJE LA PACARANA ==================== -->
+  <section id="pacarana" class="py-20 bg-brand-nature/30 border-y border-brand-nature/60 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Ilustración Principal de la Pacarana -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-sm rounded-3xl bg-brand-nature p-6 shadow-2xl border-4 border-brand-campo flex items-center justify-center">
+            <img src="images/xiembra_logo_pacarana_full.jpg" 
+                 alt="Personaje Oficial La Pacarana XIEMBRA" 
+                 class="w-full h-auto rounded-2xl object-contain shadow-inner"
+                 width="380" height="380" loading="lazy">
+            <div class="absolute -bottom-4 bg-brand-campo text-brand-nature font-bold text-xs px-5 py-1.5 rounded-full border-2 border-brand-nature shadow-lg">
+              ✨ Guardiana de Chanchamayo
+            </div>
+          </div>
+        </div>
+
+        <!-- Copywriting de la Mascota / Identidad -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="space-y-2">
+            <span class="px-3.5 py-1 rounded-full bg-brand-campo text-brand-nature text-xs font-bold uppercase tracking-wider">
+              Identidad de Marca
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-campoDark font-forrest">
+              Conoce a la Pacarana: el alma agrícola de XIEMBRA.
+            </h2>
+          </div>
+
+          <p class="text-base text-brand-charcoal leading-relaxed">
+            La <strong>Pacarana</strong> es un roedor autóctono y pacífico de los bosques de niebla de la Selva Central del Perú. En nuestra identidad, viste el tradicional sombrero campesino de Junín y lleva consigo una pala agrícola y una taza humeante de café recién tostado.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 rounded-2xl bg-white border border-brand-borde shadow-sm">
+              <div class="text-2xl mb-1">🌾</div>
+              <h4 class="text-sm font-bold text-brand-campoDark">Laboriosidad Noble</h4>
+              <p class="text-xs text-brand-muted">Homenaje a las familias que cuidan cada planta de café y cacao.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white border border-brand-borde shadow-sm">
+              <div class="text-2xl mb-1">☕</div>
+              <h4 class="text-sm font-bold text-brand-campoDark">Sabor de Altura</h4>
+              <p class="text-xs text-brand-muted">Granos cosechados a más de 1,900 metros sobre el nivel del mar.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white border border-brand-borde shadow-sm">
+              <div class="text-2xl mb-1">🌿</div>
+              <h4 class="text-sm font-bold text-brand-campoDark">Conservación</h4>
+              <p class="text-xs text-brand-muted">Prácticas agrícolas que protegen la biodiversidad amazónica.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 3. CLEAN LABEL: 4 INGREDIENTES PUROS ==================== -->
+  <section class="py-16 bg-brand-campo text-white relative overflow-hidden">
+    <div class="absolute -right-20 -top-20 w-80 h-80 bg-brand-nature/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-brand-lemon/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-12">
+        <span class="px-3.5 py-1 rounded-full bg-brand-nature text-brand-campoDark text-xs font-bold uppercase tracking-wider">
+          Etiqueta 100% Limpia (Clean Label)
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-crema">
+          Solo 4 ingredientes que tu cuerpo reconoce y agradece.
+        </h2>
+        <p class="text-sm text-brand-nature font-light">
+          Sin conservantes artificiales, sin grasas vegetales hidrogenadas, sin lecitinas ni gluten.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-brand-campoDark/90 border border-brand-nature/30 rounded-2xl p-6 space-y-3 hover:border-brand-nature transition-all">
+          <div class="w-12 h-12 rounded-xl bg-brand-nature text-brand-campo flex items-center justify-center text-xl font-bold">
+            🍫
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">1. Pasta de Cacao Nativo</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            Cacao criollo de fino aroma cosechado en la cuenca de Chanchamayo al 65% de concentración. Denso en flavonoides.
+          </p>
+        </div>
+
+        <div class="bg-brand-campoDark/90 border border-brand-nature/30 rounded-2xl p-6 space-y-3 hover:border-brand-nature transition-all">
+          <div class="w-12 h-12 rounded-xl bg-brand-nature text-brand-campo flex items-center justify-center text-xl font-bold">
+            ☕
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">2. Café en Grano Tostado</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            Granos arábica seleccionados de altura (1,900 msnm). Tostado medio crujiente que aporta cafeína natural sostenida.
+          </p>
+        </div>
+
+        <div class="bg-brand-campoDark/90 border border-brand-nature/30 rounded-2xl p-6 space-y-3 hover:border-brand-nature transition-all">
+          <div class="w-12 h-12 rounded-xl bg-brand-nature text-brand-campo flex items-center justify-center text-xl font-bold">
+            🌿
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">3. Manteca de Cacao Pura</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            Grasa noble extraída mecánicamente de las semillas de cacao. Textura fundente en boca sin aceites de palma ni químicos.
+          </p>
+        </div>
+
+        <div class="bg-brand-campoDark/90 border border-brand-nature/30 rounded-2xl p-6 space-y-3 hover:border-brand-nature transition-all">
+          <div class="w-12 h-12 rounded-xl bg-brand-nature text-brand-campo flex items-center justify-center text-xl font-bold">
+            🍯
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">4. Panela Orgánica</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            Jugo deshidratado de caña de azúcar no refinada. Minerales vivos, bajo índice glucémico y dulzor balanceado.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 4. THE SHIFT (PROBLEMA VS SOLUCIÓN) ==================== -->
+  <section id="shift" class="py-24 bg-brand-marfil border-b border-brand-borde relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <span class="text-brand-campo text-xs font-bold uppercase tracking-[0.2em] font-marmalade">The Functional Shift</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-campoDarker">
+          Dile adiós a los picos de azúcar y la <span class="text-amber-800">ansiedad de la cafeína rápida</span>.
+        </h2>
+        <p class="text-base text-brand-charcoal font-normal">
+          Las golosinas ultraprocesadas fueron diseñadas para causar adicción y fatiga mental. XIEMBRA fue formulado con ciencia botánica para darte energía limpia y enfoque prolongado.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        
+        <!-- Tarjeta 1: Snack Industrial Común -->
+        <div class="bg-white border-2 border-red-200 rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-sm">
+          <div class="absolute top-0 right-0 px-4 py-1.5 bg-red-100 border-b border-l border-red-200 text-red-700 text-xs font-bold uppercase rounded-bl-2xl flex items-center gap-1.5">
+            <i data-lucide="alert-triangle" class="w-4 h-4"></i> Golosina Convencional
+          </div>
+
+          <div class="space-y-2 pt-2">
+            <h3 class="text-2xl font-bold text-red-900 font-forrest">Snack Ultraprocesado</h3>
+            <p class="text-sm text-brand-muted">Picos agresivos de glucosa seguidos de somnolencia ("Sugar Crash").</p>
+          </div>
+
+          <ul class="space-y-4 text-sm text-brand-charcoal">
+            <li class="flex items-start gap-3">
+              <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+              <span><strong>50%+ Azúcar blanca refinada:</strong> Dispara la insulina provocando niebla mental a los 30 minutos de consumo.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+              <span><strong>Grasas vegetales hidrogenadas:</strong> Reemplazan la manteca de cacao con grasas trans dañinas y lecitinas sintéticas.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+              <span><strong>Cafeína sintética o taurina:</strong> Genera temblores, ansiedad y taquicardia sin sustento nutritivo.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-0.5"></i>
+              <span><strong>Cero Trazabilidad:</strong> Cacao anónimo que precariza el trabajo de las comunidades agrícolas.</span>
+            </li>
+          </ul>
+
+          <div class="pt-4 border-t border-red-100 text-xs text-red-600 font-medium flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            Curva de energía inestable y cansancio prematuro.
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: XIEMBRA Solución Funcional -->
+        <div class="bg-brand-crema/40 border-2 border-brand-campo rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-xl nature-glow">
+          <div class="absolute top-0 right-0 px-4 py-1.5 bg-brand-campo text-brand-nature text-xs font-black uppercase rounded-bl-2xl flex items-center gap-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i> La Solución XIEMBRA
+          </div>
+
+          <div class="space-y-2 pt-2">
+            <h3 class="text-2xl font-bold text-brand-campoDark font-forrest flex items-center gap-2">
+              Functional Snack de Especialidad
+            </h3>
+            <p class="text-sm text-brand-campo font-medium">Sinergia noble: 65% Cacao Criollo + Grano de Café de Altura.</p>
+          </div>
+
+          <ul class="space-y-4 text-sm text-brand-charcoal">
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-brand-campo shrink-0 mt-0.5"></i>
+              <span><strong>65% Cacao Nativo + Panela:</strong> Energía limpia de bajo índice glucémico y absorción lenta sin azúcar añadida industrial.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-brand-campo shrink-0 mt-0.5"></i>
+              <span><strong>Enfoque prolongado (Teobromina + Cafeína):</strong> La teobromina relaja los vasos sanguíneos y modula la cafeína para un focus sostenido sin temblores.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-brand-campo shrink-0 mt-0.5"></i>
+              <span><strong>Superfood rico en polifenoles:</strong> Máxima carga antioxidante que oxigena el cerebro y combate el estrés celular.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i data-lucide="check" class="w-5 h-5 text-brand-campo shrink-0 mt-0.5"></i>
+              <span><strong>100% Selva Central Trazable:</strong> En alianza con más de 2,300 familias campesinas de Chanchamayo Highland Coffee.</span>
+            </li>
+          </ul>
+
+          <div class="pt-4 border-t border-brand-campo/20 text-xs text-brand-campoDark font-bold flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brand-campo animate-pulse"></span>
+            Claridad mental constante y nutrición funcional pura.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 5. PRODUCT SHOWCASE (MOCKUPS OFICIALES) ==================== -->
+  <section id="grajeas" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+      <div class="space-y-3 max-w-2xl">
+        <span class="text-brand-campo text-xs font-bold uppercase tracking-[0.2em] font-marmalade">Portafolio Oficial XIEMBRA</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-campoDarker">
+          Formatos pensados para tu rutina y tus momentos selectos.
+        </h2>
+        <p class="text-base text-brand-charcoal">
+          Explora los mockups y presentaciones oficiales: el snack de bolsillo on-the-go o la caja gourmet de regalo.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 text-xs text-brand-campo font-bold bg-brand-nature/50 px-4 py-2 rounded-full border border-brand-nature">
+        <i data-lucide="truck" class="w-4 h-4 text-brand-campo"></i>
+        <span>Envíos a todo el Perú (Lima 24h)</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      
+      <!-- CARD 1: FORMATO RETAIL / IMPULSO (20G) -->
+      <div class="bg-white border-2 border-brand-borde hover:border-brand-campo rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 floating-card group">
+        <div>
+          <div class="flex justify-between items-center mb-6">
+            <span class="px-3 py-1 rounded-full bg-brand-nature text-brand-campoDark text-[11px] font-bold uppercase tracking-wider">
+              On-The-Go / Retail
+            </span>
+            <span class="text-brand-campo font-mono font-bold text-sm">20 GRAMOS</span>
+          </div>
+
+          <!-- Mockup Real 20g en Mesa de Café -->
+          <div class="w-full aspect-square rounded-2xl bg-brand-arena/60 border border-brand-borde overflow-hidden mb-6 relative flex items-center justify-center group shadow-inner">
+            <img src="images/mockup20g1_opt.jpg" alt="Xiembra 20g Formato Retail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="300" height="300" loading="lazy">
+            <span class="absolute bottom-3 left-3 bg-brand-campo text-brand-nature px-2.5 py-1 rounded text-[10px] font-bold shadow-md">
+              ⚡ Pocket Size
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-brand-campoDark font-marmalade mb-2">Grajeas Cacao 65% (20g)</h3>
+          <p class="text-xs text-brand-charcoal leading-relaxed mb-6">
+            Bolsita individual hermética de impulso. Ideal para la mochila, bolso de gym o escritorio. Tu shot de energía limpia antes de entrenar o entre reuniones.
+          </p>
+
+          <div class="space-y-2 text-xs text-brand-muted border-t border-brand-borde pt-4 mb-6">
+            <div class="flex justify-between">
+              <span>Cobertura:</span>
+              <span class="text-brand-campoDark font-bold">Cacao Nativo 65% Bitter</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Relleno:</span>
+              <span class="text-brand-campoDark font-bold">Café de Altura Tostado</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Endulzante:</span>
+              <span class="text-brand-campoDark font-bold">Panela Orgánica Pura</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-brand-borde space-y-3">
+          <div class="flex items-baseline justify-between">
+            <span class="text-xs text-brand-muted">Precio Unitario</span>
+            <span class="text-2xl font-extrabold text-brand-campo font-forrest">S/ 5.50</span>
+          </div>
+          <a href="https://wa.me/51981011816?text=Hola%20Xiembra,%20deseo%20pedir%20el%20Pack%20Express%20de%2020g%20(S/%205.50)." 
+             target="_blank"
+             class="w-full py-3.5 px-4 rounded-xl bg-brand-arena hover:bg-brand-campo text-brand-campo hover:text-brand-nature font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 border border-brand-borde">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+            <span>Pedir Formato 20g</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 2: CAJA PREMIUM (100G) - HIGHLIGHTED -->
+      <div class="bg-brand-crema/50 border-2 border-brand-campo rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 floating-card relative group nature-glow">
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-campo text-brand-nature font-extrabold text-[11px] uppercase tracking-wider rounded-full shadow-lg">
+          ⭐ Experiencia Gourmet & Regalo
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-6 mt-1">
+            <span class="px-3 py-1 rounded-full bg-brand-nature text-brand-campoDark text-[11px] font-bold uppercase tracking-wider">
+              Edición Colección
+            </span>
+            <span class="text-brand-campo font-mono font-bold text-sm">100 GRAMOS</span>
+          </div>
+
+          <!-- Mockup Real 100g Caja -->
+          <div class="w-full aspect-square rounded-2xl bg-white border border-brand-campo/20 overflow-hidden mb-6 relative flex items-center justify-center shadow-inner group">
+            <img src="images/mockup100gcaja_opt.jpg" alt="Xiembra Caja 100g Gourmet" class="w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105" width="300" height="300" loading="lazy">
+            <span class="absolute bottom-3 left-3 bg-brand-campo text-brand-nature font-bold px-2.5 py-1 rounded text-[10px] shadow-md">
+              🎁 Caja Rígida + Sello
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-brand-campoDark font-marmalade mb-2">Caja Premium Gourmet (100g)</h3>
+          <p class="text-xs text-brand-charcoal leading-relaxed mb-6">
+            Elegante estuche de 100g con acabado mate e ilustraciones botánicas de la Selva Central. Diseñada para sobremesas, maridajes con café filtrado y regalos corporativos.
+          </p>
+
+          <div class="space-y-2 text-xs text-brand-muted border-t border-brand-borde pt-4 mb-6">
+            <div class="flex justify-between">
+              <span>Selección:</span>
+              <span class="text-brand-campo font-bold">Grajeas Calibradas a Mano</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Rendimiento:</span>
+              <span class="text-brand-campoDark font-bold">Para compartir en oficina / hogar</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Presentación:</span>
+              <span class="text-brand-campoDark font-bold">Caja rígida con sello de origen</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-brand-campo/20 space-y-3">
+          <div class="flex items-baseline justify-between">
+            <span class="text-xs text-brand-muted">Precio de Lanzamiento</span>
+            <span class="text-2xl font-extrabold text-brand-campo font-forrest">S/ 24.00</span>
+          </div>
+          <a href="https://wa.me/51981011816?text=Hola%20Xiembra,%20deseo%20pedir%20la%20Caja%20Premium%20de%20100g%20(S/%2024.00)." 
+             target="_blank"
+             class="w-full py-3.5 px-4 rounded-xl bg-brand-campo hover:bg-brand-campoDark text-brand-nature font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-lg campo-glow">
+            <i data-lucide="gift" class="w-4 h-4"></i>
+            <span>Pedir Caja Premium 100g</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 3: MOSTRADOR RETAIL EN CAFETERÍA -->
+      <div class="bg-white border-2 border-brand-borde rounded-3xl p-6 sm:p-8 flex flex-col justify-between floating-card relative overflow-hidden group">
+        <div>
+          <div class="flex justify-between items-center mb-6">
+            <span class="px-3 py-1 rounded-full bg-brand-nature text-brand-campoDark text-[11px] font-bold uppercase tracking-wider">
+              Exhibición Mostrador
+            </span>
+            <span class="text-brand-campo font-mono text-xs font-bold">ALTA ROTACIÓN</span>
+          </div>
+
+          <!-- Mockup Real Mostrador Cafetería -->
+          <div class="w-full aspect-square rounded-2xl bg-brand-dark overflow-hidden mb-6 flex items-center justify-center relative group">
+            <img src="images/mockup20g2_opt.jpg" alt="Exhibidor Xiembra en Cafetería" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="300" height="300" loading="lazy">
+            <span class="absolute bottom-3 left-3 bg-brand-campoDark/90 backdrop-blur-sm text-brand-lemon px-2.5 py-1 rounded text-[10px] font-bold border border-brand-nature/40 shadow-md">
+              ☕ Punto de Venta Retail
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-bold text-brand-campoDark font-marmalade mb-2">Exhibición en Cafeterías</h3>
+          <p class="text-xs text-brand-charcoal leading-relaxed mb-6">
+            Display acrílico transparente para mostrador. El snack complementario perfecto para acompañar bebidas calientes y filtrados de especialidad.
+          </p>
+        </div>
+
+        <div class="pt-4 border-t border-brand-borde">
+          <button onclick="document.getElementById('b2b-form').scrollIntoView({behavior: 'smooth'})" 
+                  class="w-full py-3.5 px-4 rounded-xl bg-brand-campo hover:bg-brand-campoDark text-brand-nature font-bold text-xs uppercase tracking-wider transition-colors shadow-md flex items-center justify-center gap-2">
+            <i data-lucide="store" class="w-4 h-4"></i>
+            <span>Pedir Display para mi Tienda</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== GALERÍA VISUAL DE PRODUCTO & CORTE TRANSVERSAL ==================== -->
+    <div class="p-8 sm:p-10 rounded-3xl bg-white border-2 border-brand-campo/20 shadow-xl">
+      <div class="text-center max-w-2xl mx-auto space-y-2 mb-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-campo font-marmalade">Detalle Sensorial</span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-brand-campoDark font-forrest">
+          La anatomía perfecta del Functional Snack
+        </h3>
+        <p class="text-xs sm:text-sm text-brand-muted">
+          Cada grajea es calibrada a mano para lograr la proporción ideal entre el crujido del café y el dulzor del cacao 65%.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        
+        <div class="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brand-borde shadow-md group">
+          <img src="images/macro_grajea_corte.png" alt="Corte Transversal" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute bottom-2 left-2 right-2 bg-brand-campoDark/90 text-brand-nature text-[11px] p-2 rounded-lg font-bold text-center">
+            Corazón de Café Tostado + Cobertura 65%
+          </div>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brand-borde shadow-md group">
+          <img src="images/packaging_detail.png" alt="Empaque 20g" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute bottom-2 left-2 right-2 bg-brand-campoDark/90 text-brand-nature text-[11px] p-2 rounded-lg font-bold text-center">
+            Empaque Hermético On-The-Go (20g)
+          </div>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brand-borde shadow-md group">
+          <img src="images/mockup100g_opt.jpg" alt="Caja Colección 100g" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+          <div class="absolute bottom-2 left-2 right-2 bg-brand-campoDark/90 text-brand-nature text-[11px] p-2 rounded-lg font-bold text-center">
+            Edición Colección 100g en Origen
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== 6. STORYTELLING & TRAZABILIDAD (VALLE DE CHANCHAMAYO) ==================== -->
+  <section id="trazabilidad" class="py-24 bg-brand-campoDark text-white relative overflow-hidden">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div id="origen" class="max-w-3xl space-y-4 mb-16">
+        <span class="text-brand-nature text-xs font-bold uppercase tracking-[0.2em] font-marmalade">Terroir & Trazabilidad Radical</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-brand-crema">
+          De las fincas de altura en Chanchamayo directo a tus manos.
+        </h2>
+        <p class="text-base sm:text-lg text-brand-nature font-light leading-relaxed">
+          Xiembra nace inspirada en la fertilidad de la Selva Central del Perú, una tierra donde el café y el cacao conectan naturaleza, familias y territorio bajo un modelo de comercio directo y precio justo.
+        </p>
+      </div>
+
+      <!-- Métricas Clave de Impacto -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div class="p-6 rounded-2xl bg-brand-campo border border-brand-nature/30">
+          <span class="block text-3xl sm:text-4xl font-extrabold text-brand-lemon font-forrest mb-1">1,900 m</span>
+          <span class="text-xs text-brand-crema/80 uppercase tracking-wider font-bold">Altitud Máxima de Cultivo</span>
+        </div>
+        <div class="p-6 rounded-2xl bg-brand-campo border border-brand-nature/30">
+          <span class="block text-3xl sm:text-4xl font-extrabold text-brand-lemon font-forrest mb-1">+2,300</span>
+          <span class="text-xs text-brand-crema/80 uppercase tracking-wider font-bold">Familias Productoras</span>
+        </div>
+        <div class="p-6 rounded-2xl bg-brand-campo border border-brand-nature/30">
+          <span class="block text-3xl sm:text-4xl font-extrabold text-brand-lemon font-forrest mb-1">40,000 ha</span>
+          <span class="text-xs text-brand-crema/80 uppercase tracking-wider font-bold">Entorno Sostenible Junín</span>
+        </div>
+        <div class="p-6 rounded-2xl bg-brand-campo border border-brand-nature/30">
+          <span class="block text-3xl sm:text-4xl font-extrabold text-brand-lemon font-forrest mb-1">100%</span>
+          <span class="text-xs text-brand-crema/80 uppercase tracking-wider font-bold">Comercio Directo y Ético</span>
+        </div>
+      </div>
+
+      <!-- 4 Pasos del Viaje del Grano -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+        
+        <div class="space-y-4 bg-brand-campo/80 p-6 rounded-2xl border border-brand-nature/20">
+          <div class="w-12 h-12 rounded-xl bg-brand-nature text-brand-campo flex items-center justify-center font-bold font-forrest text-lg">
+            01
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">Cosecha Selectiva a Mano</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            Recolección en parcelas de ladera entre 1,200 y 1,900 msnm. Solo cerezos de café y mazorcas de cacao nativo en su óptimo estado de maduración.
+          </p>
+        </div>
+
+        <div class="space-y-4 bg-brand-campo/80 p-6 rounded-2xl border border-brand-nature/20">
+          <div class="w-12 h-12 rounded-xl bg-brand-lemon text-brand-campo flex items-center justify-center font-bold font-forrest text-lg">
+            02
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">Tostado de Especialidad</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            En alianza con <em>Chanchamayo Highland Coffee</em>, tostamos el grano en curvas de aire caliente para lograr un crujido perfecto sin amargor quemado.
+          </p>
+        </div>
+
+        <div class="space-y-4 bg-brand-campo/80 p-6 rounded-2xl border border-brand-nature/20">
+          <div class="w-12 h-12 rounded-xl bg-brand-nature text-brand-campo flex items-center justify-center font-bold font-forrest text-lg">
+            03
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">Grajeado al 65% Cacao</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            Baño artesanal en pailas con chocolate bitter formulado con pasta de cacao puro y panela orgánica. Cero grasas sustitutas ni aditivos.
+          </p>
+        </div>
+
+        <div class="space-y-4 bg-brand-campo/80 p-6 rounded-2xl border border-brand-lemon text-brand-campo flex items-center justify-center font-bold font-forrest text-lg">
+          <div class="w-12 h-12 rounded-xl bg-brand-lemon text-brand-campo flex items-center justify-center font-bold font-forrest text-lg">
+            04
+          </div>
+          <h3 class="text-lg font-bold text-brand-lemon">Cadena Ética & Asset-Light</h3>
+          <p class="text-xs text-brand-crema/80 leading-relaxed">
+            Empaque hermético que preserva el aroma y frescura, pagando un precio por encima del mercado a los productores locales.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 7. CORNER B2B / BIO-TIENDAS & CAFETERÍAS ==================== -->
+  <section id="b2b" class="py-24 bg-brand-marfil border-t border-brand-borde">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Copy B2B -->
+      <div class="lg:col-span-6 space-y-8">
+        <div class="space-y-3">
+          <span class="text-brand-campo text-xs font-bold uppercase tracking-[0.2em] font-marmalade">Canal Mayorista & Cafeterías</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-campoDarker">
+            Vende XIEMBRA en tu cafetería, bio-market o empresa.
+          </h2>
+          <p class="text-base text-brand-charcoal">
+            Un snack de alta rotación en mostrador que combina con café de filtro y atrae a consumidores conscientes de su salud y productividad.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-brand-borde shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-brand-nature flex items-center justify-center text-brand-campo shrink-0 font-bold">
+              <i data-lucide="percent" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-brand-campoDark">Excelente Margen Comercial</h4>
+              <p class="text-xs text-brand-muted">Precios por escala para cafeterías de especialidad, bio-tiendas (Flora & Fauna, La Sanahoria) y distribuidores.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4 p-4 rounded-2xl bg-white border border-brand-borde shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-brand-nature flex items-center justify-center text-brand-campo shrink-0 font-bold">
+              <i data-lucide="file-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-brand-campoDark">100% Formal y Listo para Retail</h4>
+              <p class="text-xs text-brand-muted">Registro Sanitario DIGESA vigente, código de barras EAN-13, tabla nutricional y empaques con barrera de oxígeno.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonio B2C / Social Proof -->
+        <div class="p-6 rounded-2xl bg-brand-crema/60 border border-brand-campo/20 space-y-3">
+          <div class="flex items-center gap-1 text-amber-500">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="text-xs sm:text-sm text-brand-charcoal italic leading-relaxed">
+            "Las grajeas Xiembra vuelan en el mostrador de nuestra cafetería en Miraflores. Los clientes se llevan el paquete de 20g para acompañar su espresso y vuelven por la caja de 100g."
+          </p>
+          <div class="text-xs font-bold text-brand-campoDark">— Diego M. · Gerente de Cafetería de Especialidad</div>
+        </div>
+
+      </div>
+
+      <!-- Formulario B2B con Integración Supabase + WhatsApp -->
+      <div class="lg:col-span-6">
+        <div class="bg-white border-2 border-brand-campo rounded-3xl p-8 sm:p-10 space-y-6 shadow-xl" id="b2b-form-card">
+          <div class="space-y-2">
+            <span class="px-3 py-1 rounded-full bg-brand-nature text-brand-campoDark text-[10px] font-bold uppercase tracking-wider">
+              Solicitud de Catálogo Mayorista
+            </span>
+            <h3 class="text-2xl font-bold text-brand-campoDark font-forrest">Cotiza directo con nuestro equipo comercial</h3>
+            <p class="text-xs text-brand-muted">
+              Te enviamos la lista de precios por volumen y condiciones de despacho en menos de 2 horas.
+            </p>
+          </div>
+
+          <form id="b2b-form" class="space-y-4" onsubmit="handleB2BSubmit(event)">
+            <div>
+              <label class="block text-xs font-bold text-brand-charcoal mb-1">Nombre o Razón Social / Cafetería *</label>
+              <input type="text" id="b2b-name" required placeholder="Ej. Cafetería Origen / BioMarket Verde" 
+                     class="w-full px-4 py-3 rounded-xl bg-brand-marfil border border-brand-borde text-brand-dark text-sm focus:outline-none focus:border-brand-campo transition-colors">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-brand-charcoal mb-1">WhatsApp / Celular *</label>
+                <input type="tel" id="b2b-phone" required placeholder="981 000 000" 
+                       class="w-full px-4 py-3 rounded-xl bg-brand-marfil border border-brand-borde text-brand-dark text-sm focus:outline-none focus:border-brand-campo transition-colors">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-brand-charcoal mb-1">Tipo de Negocio</label>
+                <select id="b2b-type" class="w-full px-4 py-3 rounded-xl bg-brand-marfil border border-brand-borde text-brand-dark text-sm focus:outline-none focus:border-brand-campo transition-colors">
+                  <option value="Cafetería de Especialidad">Cafetería de Especialidad</option>
+                  <option value="BioMarket / Tienda Saludable">BioMarket / Tienda Saludable</option>
+                  <option value="Regalos Corporativos">Regalos Corporativos</option>
+                  <option value="Distribuidor Regional">Distribuidor Regional</option>
+                  <option value="Otro">Otro Negocio</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-brand-charcoal mb-1">Mensaje o volumen estimado</label>
+              <textarea id="b2b-message" rows="2" placeholder="Deseo recibir el catálogo mayorista y muestras para mi tienda..." 
+                        class="w-full px-4 py-3 rounded-xl bg-brand-marfil border border-brand-borde text-brand-dark text-sm focus:outline-none focus:border-brand-campo transition-colors"></textarea>
+            </div>
+
+            <button type="submit" id="b2b-submit-btn"
+                    class="w-full py-4 rounded-xl bg-brand-campo hover:bg-brand-campoDark text-brand-nature font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-md campo-glow flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Solicitar Catálogo Mayorista</span>
+            </button>
+            
+            <p class="text-[11px] text-brand-muted text-center">
+              Atención directa WhatsApp: <strong class="text-brand-campo">+51 981 011 816</strong> (Equipo Comercial XIEMBRA)
+            </p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 8. PREGUNTAS FRECUENTES (FAQ) ==================== -->
+  <section class="py-20 bg-brand-arena/40 border-t border-brand-borde">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center space-y-3 mb-12">
+        <span class="text-brand-campo text-xs font-bold uppercase tracking-wider font-marmalade">Dudas Frecuentes</span>
+        <h2 class="text-3xl font-extrabold text-brand-campoDarker">Preguntas Frecuentes</h2>
+      </div>
+
+      <div class="space-y-4" id="faq-container">
+        
+        <details class="bg-white border border-brand-borde rounded-2xl p-5 group open:border-brand-campo transition-colors">
+          <summary class="font-bold text-brand-campoDark cursor-pointer list-none flex justify-between items-center text-sm sm:text-base">
+            <span>¿Cuánto cuesta el envío y cuánto tarda en llegar?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo transition-transform group-open:rotate-180"></i>
+          </summary>
+          <p class="text-xs sm:text-sm text-brand-charcoal pt-3 leading-relaxed">
+            Para Lima Metropolitana el despacho toma entre 24 y 48 horas tras confirmar el pedido. Para provincias coordinamos mediante agencias terrestres (Olva, Shalom o la de tu preferencia).
+          </p>
+        </details>
+
+        <details class="bg-white border border-brand-borde rounded-2xl p-5 group open:border-brand-campo transition-colors">
+          <summary class="font-bold text-brand-campoDark cursor-pointer list-none flex justify-between items-center text-sm sm:text-base">
+            <span>¿A cuánta cafeína equivale una porción de 20g?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo transition-transform group-open:rotate-180"></i>
+          </summary>
+          <p class="text-xs sm:text-sm text-brand-charcoal pt-3 leading-relaxed">
+            Una bolsita de 20g equivale aproximadamente a una taza de café espresso suave, pero gracias a la teobromina del cacao 65%, la energía se absorbe gradualmente sin generar taquicardia ni nerviosismo.
+          </p>
+        </details>
+
+        <details class="bg-white border border-brand-borde rounded-2xl p-5 group open:border-brand-campo transition-colors">
+          <summary class="font-bold text-brand-campoDark cursor-pointer list-none flex justify-between items-center text-sm sm:text-base">
+            <span>¿Es apto para veganos o intolerantes a la lactosa?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo transition-transform group-open:rotate-180"></i>
+          </summary>
+          <p class="text-xs sm:text-sm text-brand-charcoal pt-3 leading-relaxed">
+            ¡Sí! Nuestra fórmula contiene únicamente 4 ingredientes 100% vegetales: pasta de cacao nativo, grano de café tostado, manteca de cacao pura y panela orgánica. Cero derivados lácteos.
+          </p>
+        </details>
+
+        <details class="bg-white border border-brand-borde rounded-2xl p-5 group open:border-brand-campo transition-colors">
+          <summary class="font-bold text-brand-campoDark cursor-pointer list-none flex justify-between items-center text-sm sm:text-base">
+            <span>¿Cómo se deben conservar las grajeas?</span>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-brand-campo transition-transform group-open:rotate-180"></i>
+          </summary>
+          <p class="text-xs sm:text-sm text-brand-charcoal pt-3 leading-relaxed">
+            Conservar en un lugar fresco y seco, idealmente entre 16°C y 22°C, alejado de la luz solar directa o fuentes de calor para mantener el brillo y textura crujiente.
+          </p>
+        </details>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 9. FOOTER & LEGAL ==================== -->
+  <footer class="bg-brand-campoDarker text-white pt-16 pb-12 text-xs border-t-4 border-brand-nature">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        
+        <!-- Col 1: Brand & Purpose -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <img src="images/logo_xiembra_campo.jpg" alt="XIEMBRA" class="h-12 w-auto rounded-xl border border-brand-nature/40 shadow-md">
+          </div>
+          <p class="text-brand-nature/80 leading-relaxed">
+            Functional snacks y café de especialidad de origen directo del Valle de Chanchamayo, Junín, Perú.
+          </p>
+          <div class="text-[11px] text-brand-crema/70 space-y-1">
+            <div><strong>Razón Social:</strong> Xiembra Agroindustrial S.A.C.</div>
+            <div><strong>RUC:</strong> 20616165365</div>
+            <div>Hecho con orgullo en Perú 🇵🇪</div>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-brand-lemon font-forrest uppercase tracking-wider">Navegación</h4>
+          <ul class="space-y-2 text-brand-crema/80">
+            <li><a href="#hero" class="hover:text-brand-nature transition-colors">Inicio</a></li>
+            <li><a href="#grajeas" class="hover:text-brand-nature transition-colors">Grajeas 20g Express</a></li>
+            <li><a href="#grajeas" class="hover:text-brand-nature transition-colors">Caja Gourmet 100g</a></li>
+            <li><a href="#pacarana" class="hover:text-brand-nature transition-colors">Personaje La Pacarana</a></li>
+            <li><a href="#origen" class="hover:text-brand-nature transition-colors">Origen Chanchamayo</a></li>
+            <li><a href="#b2b" class="hover:text-brand-nature transition-colors">Canal B2B & Cafeterías</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contact & Attention -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-brand-lemon font-forrest uppercase tracking-wider">Atención & Pedidos</h4>
+          <ul class="space-y-2 text-brand-crema/80">
+            <li class="flex items-center gap-2">
+              <i data-lucide="phone" class="w-4 h-4 text-brand-nature"></i>
+              <span>+51 981 011 816</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="mail" class="w-4 h-4 text-brand-nature"></i>
+              <span>xiembra.peru@gmail.com</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4 text-brand-nature"></i>
+              <span>Atención al Cliente XIEMBRA</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <i data-lucide="instagram" class="w-4 h-4 text-brand-nature"></i>
+              <a href="https://instagram.com/xiembra" target="_blank" rel="noopener noreferrer" class="hover:text-brand-lemon underline font-bold">@xiembra</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Quality & Endorsement -->
+        <div class="space-y-3">
+          <h4 class="text-sm font-bold text-brand-lemon font-forrest uppercase tracking-wider">Respaldo de Cadena</h4>
+          <p class="text-brand-crema/80 text-[11px] leading-relaxed">
+            En alianza con <strong>Chanchamayo Highland Coffee</strong>. Cadena vinculada a estándares internacionales de sostenibilidad:
+          </p>
+          <div class="flex flex-wrap gap-2 pt-2 text-[10px] text-brand-campoDark font-bold">
+            <span class="px-2 py-1 rounded-md bg-brand-nature">USDA Organic</span>
+            <span class="px-2 py-1 rounded-md bg-brand-nature">EU Organic</span>
+            <span class="px-2 py-1 rounded-md bg-brand-nature">Fair Trade</span>
+            <span class="px-2 py-1 rounded-md bg-brand-nature">Rainforest</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Legal Bottom Bar -->
+      <div class="pt-8 border-t border-brand-nature/20 flex flex-col sm:flex-row justify-between items-center gap-4 text-brand-crema/70 text-[11px]">
+        <div>
+          © 2026 Xiembra Agroindustrial S.A.C. Todos los derechos reservados.
+        </div>
+        <div class="flex items-center gap-6">
+          <button onclick="openModal('modal-libro')" class="hover:text-brand-lemon flex items-center gap-1.5 font-bold text-brand-nature">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            <span>Libro de Reclamaciones</span>
+          </button>
+          <button onclick="openModal('modal-privacidad')" class="hover:text-brand-nature">Políticas de Privacidad</button>
+          <button onclick="openModal('modal-terminos')" class="hover:text-brand-nature">Términos y Condiciones</button>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING WHATSAPP BUTTON ==================== -->
+  <aside class="fixed bottom-6 right-6 z-40 flex items-center gap-3" aria-label="Contacto Rápido">
+    <div class="hidden sm:flex items-center px-4 py-2 rounded-full bg-brand-campoDarker text-white text-xs border border-brand-nature/40 shadow-2xl backdrop-blur-md">
+      <span class="w-2.5 h-2.5 rounded-full bg-brand-nature mr-2 animate-pulse"></span>
+      <span class="font-bold text-brand-crema">¿Pedir ahora? Chatea con nosotros</span>
+    </div>
+    <a href="https://wa.me/51981011816?text=Hola%20Xiembra!%20Deseo%20hacer%20un%20pedido%20de%20Grajeas%20de%20Chocolate." 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Abrir WhatsApp para pedidos"
+       class="w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-green-400/40">
+      <i data-lucide="message-circle" class="w-7 h-7 fill-current"></i>
+    </a>
+  </aside>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Modal Libro de Reclamaciones -->
+  <div id="modal-libro" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border-2 border-brand-campo rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-libro')" class="absolute top-6 right-6 text-brand-muted hover:text-brand-dark">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="space-y-4">
+        <div class="flex items-center gap-2 text-brand-campo">
+          <i data-lucide="book-open" class="w-6 h-6"></i>
+          <h3 class="text-xl font-bold text-brand-campoDark font-forrest">Libro de Reclamaciones Virtual</h3>
+        </div>
+        <p class="text-xs text-brand-muted">
+          Conforme a lo establecido en el Código de Protección y Defensa del Consumidor (Ley N° 29571) de la República del Perú.
+        </p>
+        <div class="text-xs text-brand-charcoal space-y-2 bg-brand-arena/60 p-4 rounded-xl border border-brand-borde">
+          <div><strong>Razón Social:</strong> Xiembra Agroindustrial S.A.C.</div>
+          <div><strong>RUC:</strong> 20616165365</div>
+          <div><strong>Domicilio Legal:</strong> Valle de Chanchamayo, Junín, Perú</div>
+          <div><strong>Correo de Atención:</strong> xiembra.peru@gmail.com</div>
+        </div>
+        <p class="text-xs text-brand-muted">
+          Para ingresar un reclamo o queja formal, envíanos el detalle a <strong class="text-brand-campo">xiembra.peru@gmail.com</strong> con el asunto <em>"Hoja de Reclamación - [Tu Nombre]"</em> o al WhatsApp <strong>+51 981 011 816</strong>. Te responderemos en un plazo máximo de 15 días hábiles.
+        </p>
+        <button onclick="closeModal('modal-libro')" class="w-full py-3 rounded-xl bg-brand-campo text-brand-nature font-bold text-xs uppercase tracking-wider">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Privacidad -->
+  <div id="modal-privacidad" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border-2 border-brand-campo rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-privacidad')" class="absolute top-6 right-6 text-brand-muted hover:text-brand-dark">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold text-brand-campoDark font-forrest">Política de Privacidad</h3>
+        <p class="text-xs text-brand-charcoal leading-relaxed">
+          En Xiembra Agroindustrial S.A.C. tratamos sus datos personales con absoluta confidencialidad bajo la Ley N° 29733 (Ley de Protección de Datos Personales del Perú). Los datos proporcionados son utilizados exclusivamente para la gestión de pedidos, despachos logísticos y cotizaciones mayoristas.
+        </p>
+        <button onclick="closeModal('modal-privacidad')" class="w-full py-3 rounded-xl bg-brand-campo text-brand-nature font-bold text-xs uppercase tracking-wider">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Términos -->
+  <div id="modal-terminos" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white border-2 border-brand-campo rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-terminos')" class="absolute top-6 right-6 text-brand-muted hover:text-brand-dark">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="space-y-4">
+        <h3 class="text-xl font-bold text-brand-campoDark font-forrest">Términos del Servicio</h3>
+        <p class="text-xs text-brand-charcoal leading-relaxed">
+          Los precios mostrados en la web están expresados en Soles Peruanos (PEN) e incluyen IGV. Los despachos en Lima Metropolitana se realizan en 24 a 48 horas tras la confirmación del pago. Para envíos a provincias, coordinamos mediante agencias terrestres autorizadas.
+        </p>
+        <button onclick="closeModal('modal-terminos')" class="w-full py-3 rounded-xl bg-brand-campo text-brand-nature font-bold text-xs uppercase tracking-wider">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT & SUPABASE INTEGRATION ==================== -->
+  <script>
+    lucide.createIcons();
+
+    // ================= CONFIGURACIÓN SUPABASE =================
+    const SUPABASE_URL = window.SUPABASE_URL || '';
+    const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || '';
+    let supabaseClient = null;
+
+    if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase) {
+      try {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      } catch (err) {
+        console.warn('Supabase no inicializado:', err);
+      }
+    }
+
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    async function handleB2BSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('b2b-name').value;
+      const phone = document.getElementById('b2b-phone').value;
+      const type = document.getElementById('b2b-type').value;
+      const message = document.getElementById('b2b-message').value || 'Deseo solicitar el catálogo y lista de precios por mayor.';
+
+      const submitBtn = document.getElementById('b2b-submit-btn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Enviando solicitud...</span>';
+      }
+
+      // 1. Guardar en Supabase (si está configurado)
+      if (supabaseClient) {
+        try {
+          await supabaseClient.from('leads').insert([
+            {
+              company_name: name,
+              phone: phone,
+              business_type: type,
+              message: message,
+              created_at: new Date().toISOString()
+            }
+          ]);
+        } catch (dbErr) {
+          console.error('Error registrando lead en Supabase:', dbErr);
+        }
+      }
+
+      // 2. Redirección fluida a WhatsApp Comercial
+      const whatsappText = `¡Hola XIEMBRA! Mi nombre/negocio es *${name}* (${type}). Mi teléfono es ${phone}. ${message}`;
+      const url = `https://wa.me/51981011816?text=${encodeURIComponent(whatsappText)}`;
+      
+      setTimeout(() => {
+        window.open(url, '_blank');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>Solicitud Enviada</span>';
+          lucide.createIcons();
+        }
+      }, 300);
+    }
+  </script>
+</body>
+</html>
